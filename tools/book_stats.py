@@ -1,4 +1,4 @@
-"""统计全书各章的字数、实验、练习、术语、参考文献和交互动画，写入首页“全书概览”表格。
+"""统计全书各章的字数、在线体验、练习、术语、参考文献和交互动画，写入首页“全书概览”表格。
 
 用法：python tools/book_stats.py   （可重复运行；表格写在首页两个 stats 注释之间）
 """
@@ -22,7 +22,7 @@ def chapter_stats(path, num, glossary):
     return {
         "num": num, "dir": path.parent.name,
         "words": len(re.findall(r"[一-鿿]", body)),
-        "labs": len(re.findall(r"^### 实验 \d+-\d+", s, re.M)),
+        "labs": len(re.findall(r"^### 体验 \d+-\d+", s, re.M)),
         "exercises": exercises,
         "quiz": len(re.findall(r'class="quiz[ "]', tail)),
         "terms": len(glossary.get(num, [])),
@@ -42,7 +42,7 @@ def main():
     graph = (DOCS / "learning-graph/data.js").read_text(encoding="utf-8")
     concepts = graph.count('"id":')
     faq = (DOCS / "faq/index.md").read_text(encoding="utf-8").count('??? question')
-    lines = [START, "", "| 章 | 正文字数 | 实验 | 课后练习<br>（可在线作答） | 术语 | 参考文献 | 交互动画 |", "|---|---|---|---|---|---|---|"]
+    lines = [START, "", "| 章 | 正文字数 | 在线体验 | 课后练习<br>（可在线作答） | 术语 | 参考文献 | 交互动画 |", "|---|---|---|---|---|---|---|"]
     for r in rows:
         lines.append(f"| [第 {r['num']} 章](chapters/{r['dir']}/index.md) | {wan(r['words'])} | {r['labs']} | {r['exercises']}（{r['quiz']}） | {r['terms']} | {r['refs']} | {r['sims']} |")
     lines.append(f"| **合计** | **{wan(total['words'])}** | **{total['labs']}** | **{total['exercises']}（{total['quiz']}）** | **{total['terms']}** | **{total['refs']}** | **{total['sims']}** |")
@@ -53,9 +53,9 @@ def main():
     if START in s:
         s = s[:s.index(START)] + block + s[s.index(END) + len(END):]
     else:
-        s = s.replace("## 目录与实验", "## 全书概览\n\n" + block + "\n\n## 目录与实验", 1)
+        s = s.replace("## 目录与在线体验", "## 全书概览\n\n" + block + "\n\n## 目录与在线体验", 1)
     index.write_text(s, encoding="utf-8")
-    print(f"全书 {wan(total['words'])}字，{total['labs']} 个实验，{total['exercises']} 道练习，{total['sims']} 个动画")
+    print(f"全书 {wan(total['words'])}字，{total['labs']} 个在线体验，{total['exercises']} 道练习，{total['sims']} 个动画")
 
 
 if __name__ == "__main__":

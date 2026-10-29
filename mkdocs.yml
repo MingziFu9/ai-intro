@@ -1,6 +1,5 @@
-# 新书只需改动：site_name、site_description，以及 nav（每写完一章、一个动画就加一行）
-site_name: 课程名称
-site_description: 面向成人教育人工智能技术应用专业（专科）的《课程名称》教材，每章配套动手实验
+site_name: 人工智能导论
+site_description: 面向成人教育人工智能技术应用专业（专科）的《人工智能导论》教材，每章配套免安装的在线体验和交互动画
 docs_dir: docs
 theme:
   name: material
@@ -35,15 +34,22 @@ extra_javascript:
 nav:
   - 首页: index.md
   - 课程描述: course-description.md
-  - "第 1 章 示例章（写正文时替换）": chapters/01-sample/index.md
+  - "第 1 章 人工智能概述": chapters/01-overview/index.md
+  - "第 2 章 搜索、知识表示与专家系统": chapters/02-search-knowledge/index.md
+  - "第 3 章 机器学习入门": chapters/03-machine-learning/index.md
+  - "第 4 章 深度学习入门": chapters/04-deep-learning/index.md
+  - "第 5 章 自然语言处理与大模型": chapters/05-nlp-llm/index.md
+  - "第 6 章 计算机视觉": chapters/06-computer-vision/index.md
+  - "第 7 章 语音技术": chapters/07-speech/index.md
+  - "第 8 章 强化学习、生成式 AI 与智能体": chapters/08-rl-agents/index.md
+  - "第 9 章 行业应用、伦理与法规": chapters/09-applications-ethics/index.md
   - 交互动画:
     - sims/index.md
-    - "示例动画：点击计数器": sims/example-counter/index.md
   - 学习图谱: learning-graph/index.md
   - 常见问题: faq/index.md
-  - 证书考点对照: certificate.md
+  - 在线模拟卷: exam/index.md
   - 附录:
-    - "附录 A Python 速查": appendix/a-python.md
-    - "附录 B 工具库速查": appendix/b-libraries.md
-    - "附录 C 实验环境与数据说明": appendix/c-environment.md
+    - "附录 A 在线平台与账号指南": appendix/a-platforms.md
+    - "附录 B 人工智能大事年表": appendix/b-timeline.md
+    - "附录 C 专业课程地图": appendix/c-course-map.md
     - "附录 D 术语表": appendix/glossary.md

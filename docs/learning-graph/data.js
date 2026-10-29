@@ -1,10 +1,7 @@
 // 学习图谱数据：由编者整理，概念与定义取自附录 D 术语表
 // 改完后运行 python tools/graph_text.py，检查数据并更新 index.md 里的文字版
-var CATS = ["示例类别一", "示例类别二"];
-var CHAPTERS = ["", "示例章"];
-var CHDIRS = ["", "01-sample"];
-var NODES = [
-  {"id": "示例术语", "ch": 1, "cat": 0, "a": "g-示例术语", "d": "这里是术语表中的定义，鼠标悬停时显示"},
-  {"id": "另一个术语", "ch": 1, "cat": 1, "a": "g-另一个术语", "d": "以示例术语为基础的概念"}
-];
-var EDGES = [["示例术语", "另一个术语"]];
+var CATS = ["基础概念", "搜索与推理", "知识表示", "机器学习", "深度学习", "语言与大模型", "计算机视觉", "语音技术", "强化学习与智能体", "行业应用", "伦理与法规"];
+var CHAPTERS = ["", "人工智能概述", "搜索、知识表示与专家系统", "机器学习入门", "深度学习入门", "自然语言处理与大模型", "计算机视觉", "语音技术", "强化学习、生成式 AI 与智能体", "行业应用、伦理与法规"];
+var CHDIRS = ["", "01-overview", "02-search-knowledge", "03-machine-learning", "04-deep-learning", "05-nlp-llm", "06-computer-vision", "07-speech", "08-rl-agents", "09-applications-ethics"];
+var NODES = [];
+var EDGES = [];
