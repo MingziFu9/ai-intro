@@ -1,0 +1,51 @@
+# ============================================================
+# 课程配置：全书唯一需要手改的配置文件
+# 改完后运行  python tools/course.py sync  ，会自动更新：
+#   mkdocs.yml 的站点名和导航、首页课程信息与目录、缺少的章节骨架、
+#   实验目录、术语表的章节小节、学习图谱的章节列表、附录编号
+# 课件（tools/make_slides.py）、教案（tools/make_lesson_plan.py）、Word/PDF 版（tools/export_docx.py）
+# 也从这里读取课程名、学时等信息
+# ============================================================
+
+title: 人工智能导论
+description: 面向成人教育人工智能技术应用专业（专科）的《人工智能导论》教材，每章配套免安装的在线体验和交互动画
+audience: 成人教育（继续教育）人工智能技术应用专业专科学生，多为在职学习者，第 1 学期
+github_user: MingziFu9
+repo: ai-intro
+
+credits: 2
+hours: {theory: 36, lab: 0}           # 全部为理论学时：线上 29 + 线下 7
+semester: 1
+exam: 闭卷
+labs_per_chapter: 2                   # 每章 2 个在线体验（不占实验学时）
+lab_section: 在线体验
+lab_word: 体验
+frontier_title: 身边的 AI
+certificates: []
+
+# offline：本章建议的线下学时（教案按它分配线上 / 线下），全书合计 7
+chapters:
+  - {dir: 01-overview, title: 人工智能概述, short: 人工智能概述, theory: 4, offline: 1}
+  - {dir: 02-search-knowledge, title: 搜索、知识表示与专家系统, short: 搜索与知识表示, theory: 4, offline: 1}
+  - {dir: 03-machine-learning, title: 机器学习入门, short: 机器学习入门, theory: 4, offline: 1}
+  - {dir: 04-deep-learning, title: 深度学习入门, short: 深度学习入门, theory: 4, offline: 0}
+  - {dir: 05-nlp-llm, title: 自然语言处理与大模型, short: 语言与大模型, theory: 4, offline: 1}
+  - {dir: 06-computer-vision, title: 计算机视觉, short: 计算机视觉, theory: 4, offline: 0}
+  - {dir: 07-speech, title: 语音技术, short: 语音技术, theory: 4, offline: 0}
+  - {dir: 08-rl-agents, title: 强化学习、生成式 AI 与智能体, short: 强化学习与智能体, theory: 4, offline: 2}
+  - {dir: 09-applications-ethics, title: 行业应用、伦理与法规, short: 应用、伦理与法规, theory: 4, offline: 1}
+
+appendices:
+  - {file: a-platforms.md, title: 在线平台与账号指南}
+  - {file: b-timeline.md, title: 人工智能大事年表}
+  - {file: c-course-map.md, title: 专业课程地图}
+  - {file: glossary.md, title: 术语表}
+
+# 导航里“常见问题”之后的其他页面
+extra_pages:
+  - {file: exam/index.md, title: 在线模拟卷}
+
+lesson_plan:
+  online_ratio: 0.8                   # 各章写了 offline 时以 offline 为准
+  teacher: ""
+  school: ""

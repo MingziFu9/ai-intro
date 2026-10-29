@@ -13,6 +13,8 @@
 |---|---|
 | `docs/` | 教材正文（MkDocs Material 格式） |
 | `docs/sims/` | 交互动画，每个动画一个文件夹，公共样式在 `common/` |
+| `course.yml` | 课程配置：书名、学时、各章与线下学时、附录；改完运行 `python tools/course.py sync` |
+| `slides/`、`lesson-plans/` | 课件和教案的底稿，用 `tools/make_slides.py`、`tools/make_lesson_plan.py` 生成 |
 | `tools/` | 维护脚本：术语链接与概念清单、学习图谱检查、首页统计、Word/PDF 导出；`build_concepts.py` 生成大纲阶段的概念表 |
 | `规划/` | 章节大纲与学习图谱概念表（大纲阶段） |
 | `编写规范.md`、`系列公共术语表.md` | 系列教材共用的编写规范和术语表 |
