@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>曲线拟合与过拟合</title>
+<link rel="stylesheet" href="../common/sim.css">
+<style>
+  canvas { width:100%; display:block; border:1px solid var(--line); border-radius:6px; }
+  #cv { height:300px; } #err { height:170px; }
+  .legend { font-size:12px; color:var(--muted); }
+  .legend i { display:inline-block; width:10px; height:10px; border-radius:50%; margin:0 3px 0 8px; vertical-align:-1px; }
+  .kv { min-width:2em; font-weight:bold; color:var(--accent); }
+  .verdict { font-weight:bold; }
+</style>
+</head>
+<body>
+<h1>曲线拟合与过拟合：模型越复杂，是不是越好？</h1>
+<div class="sub">横轴：当天最高气温（℃）；纵轴：奶茶销量（杯）。蓝点是训练集（10 天），橙点是测试集（12 天），数据为编者按“气温越高销量越高、过了 33℃ 增长放缓”构造并加入随机波动。</div>
+
+<canvas id="cv" aria-label="数据与拟合曲线"></canvas>
+<div class="legend"><i style="background:#3f51b5"></i>训练集（模型能看到）<i style="background:#ef6c00"></i>测试集（模型看不到）　曲线：模型的预测</div>
+
+<div class="row">
+  <span>模型复杂度（多项式次数）</span>
+  <input type="range" id="d" min="1" max="9" step="1" value="1" aria-label="多项式次数">
+  <span class="kv" id="dv">1</span>
+</div>
+<div class="row ex"><span class="lbl">试一试：</span><button data-d="1">1 次（直线）</button><button data-d="2">2 次</button><button data-d="5">5 次</button><button data-d="9">9 次</button></div>
+
+<div class="grid2">
+  <div class="box">
+    <h2>本次结果</h2>
+    <div id="bars"></div>
+    <div class="msg" id="msg"></div>
+  </div>
+  <div class="box">
+    <h2>误差随复杂度的变化</h2>
+    <canvas id="err" aria-label="训练误差与测试误差曲线"></canvas>
+    <div class="legend"><i style="background:#3f51b5"></i>训练误差<i style="background:#ef6c00"></i>测试误差（纵轴超过 60 的部分截断）</div>
+  </div>
+</div>
+<div class="note">误差用“均方根误差”：每天预测销量与实际销量之差，平方后求平均再开方，可以理解为“平均差了多少杯”。页面上的数字与教材 3.7 节的表格一致。</div>
+
+<script>
+var D = {"xtr": [14.1, 19.0, 20.6, 24.3, 27.8, 31.1, 31.5, 32.1, 33.2, 33.7], "ytr": [120, 194, 208, 231, 220, 252, 259, 261, 242, 254], "xte": [17.5, 18.7, 19.6, 20.1, 20.7, 23.8, 25.1, 26.2, 27.7, 31.4, 35.8, 35.9], "yte": [164, 179, 210, 192, 206, 241, 231, 242, 251, 260, 243, 258], "fits": [{"d": 1, "c": [34.38525824, 214.1282751], "train": 16.4, "test": 20.2}, {"d": 2, "c": [-14.06722556, 32.74451661, 232.3952229], "train": 10.1, "test": 9.0}, {"d": 3, "c": [6.121534868, -10.40924711, 20.78939599, 229.8336417], "train": 8.8, "test": 12.8}, {"d": 4, "c": [-6.584403727, 2.395890296, 7.729666885, 23.73789891, 223.0522302], "train": 7.9, "test": 14.8}, {"d": 5, "c": [-15.60022752, -11.20290101, 56.03545511, 8.070741244, -10.38863133, 223.9209638], "train": 5.8, "test": 46.5}, {"d": 6, "c": [-6.210744203, -16.87328375, 12.37802005, 55.39108548, -11.19895941, -9.72718052, 226.0095931], "train": 5.7, "test": 67.6}, {"d": 7, "c": [35.70258275, 3.152780351, -164.6343527, 4.578816633, 209.7849063, -8.379356617, -49.56941905, 226.0248088], "train": 3.2, "test": 137.6}, {"d": 8, "c": [155.7482287, -57.97473838, -742.9191379, 344.5252076, 958.8415954, -366.5273012, -398.2081216, 107.6699058, 248.2303941], "train": 0.1, "test": 744.1}, {"d": 9, "c": [91.15638289, -8.451048268, -431.1040341, 78.40891589, 554.8052266, -48.08703857, -199.7165353, -32.60563422, 12.76006144, 232.6359066], "train": 0.0, "test": 943.4}]};
+(function () {
+  var cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+  var ev = document.getElementById("err"), ectx = ev.getContext("2d");
+  var dIn = document.getElementById("d");
+  var X0 = 12, X1 = 38, Y0 = 80, Y1 = 300;
+  function z(x) { return (x - 25) / 6; }
+  function polyval(c, x) { var v = 0; for (var i = 0; i < c.length; i++) v = v * x + c[i]; return v; }
+  function prep(c) {
+    var dpr = window.devicePixelRatio || 1, W = c.clientWidth, H = c.clientHeight;
+    c.width = W * dpr; c.height = H * dpr; var g = c.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    return [W, H];
+  }
+  function main(fit) {
+    var s = prep(cv), W = s[0], H = s[1], p = { l: 36, r: 10, t: 10, b: 24 };
+    function sx(x) { return p.l + (x - X0) / (X1 - X0) * (W - p.l - p.r); }
+    function sy(y) { return p.t + (Y1 - y) / (Y1 - Y0) * (H - p.t - p.b); }
+    ctx.strokeStyle = "#eceff1"; ctx.fillStyle = "#78909c"; ctx.font = "11px sans-serif";
+    for (var x = 14; x <= 36; x += 4) { ctx.beginPath(); ctx.moveTo(sx(x), sy(Y0)); ctx.lineTo(sx(x), sy(Y1)); ctx.stroke(); ctx.textAlign = "center"; ctx.fillText(x + "℃", sx(x), H - 7); }
+    for (var y = 100; y <= 300; y += 50) { ctx.beginPath(); ctx.moveTo(sx(X0), sy(y)); ctx.lineTo(sx(X1), sy(y)); ctx.stroke(); ctx.textAlign = "right"; ctx.fillText(y, p.l - 4, sy(y) + 4); }
+    ctx.save(); ctx.beginPath(); ctx.rect(p.l, p.t, W - p.l - p.r, H - p.t - p.b); ctx.clip();
+    ctx.strokeStyle = "#263238"; ctx.lineWidth = 2; ctx.beginPath();
+    for (var i = 0; i <= 300; i++) { var xx = 13 + i * 24 / 300, yy = polyval(fit.c, z(xx)); yy = Math.max(Y0 - 200, Math.min(Y1 + 200, yy)); if (i) ctx.lineTo(sx(xx), sy(yy)); else ctx.moveTo(sx(xx), sy(yy)); }
+    ctx.stroke(); ctx.restore();
+    function pts(xs, ys, col) { for (var i = 0; i < xs.length; i++) { ctx.beginPath(); ctx.arc(sx(xs[i]), sy(ys[i]), 5, 0, 7); ctx.fillStyle = col; ctx.fill(); } }
+    pts(D.xtr, D.ytr, "#3f51b5"); pts(D.xte, D.yte, "#ef6c00");
+  }
+  function errChart(d) {
+    var s = prep(ev), W = s[0], H = s[1], p = { l: 30, r: 8, t: 8, b: 22 }, M = 60;
+    function sx(k) { return p.l + (k - 1) / 8 * (W - p.l - p.r); }
+    function sy(e) { return p.t + (1 - Math.min(e, M) / M) * (H - p.t - p.b); }
+    ectx.strokeStyle = "#eceff1"; ectx.fillStyle = "#78909c"; ectx.font = "11px sans-serif";
+    for (var e = 0; e <= M; e += 20) { ectx.beginPath(); ectx.moveTo(sx(1), sy(e)); ectx.lineTo(sx(9), sy(e)); ectx.stroke(); ectx.textAlign = "right"; ectx.fillText(e, p.l - 4, sy(e) + 4); }
+    for (var k = 1; k <= 9; k++) { ectx.textAlign = "center"; ectx.fillText(k, sx(k), H - 6); }
+    ectx.fillStyle = "rgba(63,81,181,.08)"; ectx.fillRect(sx(d) - 10, p.t, 20, H - p.t - p.b);
+    [["train", "#3f51b5"], ["test", "#ef6c00"]].forEach(function (s) {
+      ectx.strokeStyle = s[1]; ectx.lineWidth = 2; ectx.beginPath();
+      D.fits.forEach(function (f, i) { if (i) ectx.lineTo(sx(f.d), sy(f[s[0]])); else ectx.moveTo(sx(f.d), sy(f[s[0]])); });
+      ectx.stroke();
+      D.fits.forEach(function (f) { ectx.beginPath(); ectx.arc(sx(f.d), sy(f[s[0]]), 3, 0, 7); ectx.fillStyle = s[1]; ectx.fill(); });
+    });
+  }
+  function render() {
+    var d = +dIn.value, fit = D.fits[d - 1];
+    document.getElementById("dv").textContent = d;
+    main(fit); errChart(d);
+    var max = 60;
+    document.getElementById("bars").innerHTML = [["训练误差", fit.train, "#3f51b5"], ["测试误差", fit.test, "#ef6c00"]].map(function (it) {
+      return '<div class="barrow"><span>' + it[0] + '</span><div class="bar" style="background:' + it[2] + ';width:' + Math.min(100, it[1] / max * 100) + '%"></div><span class="v">' + it[1].toFixed(1) + " 杯</span></div>";
+    }).join("");
+    var v = d === 1 ? ["欠拟合", "直线太简单，连训练集都拟合不好，两种误差都偏大。", ""]
+          : d === 2 ? ["刚刚好", "测试误差最小，模型抓住了“先升后平”的规律，又没有去追每一个随机波动。", "ok"]
+          : d <= 4 ? ["开始过拟合", "训练误差还在下降，测试误差却回升了：模型开始记住训练数据里的偶然波动。", "bad"]
+          : ["严重过拟合", "曲线拼命穿过每一个蓝点，训练误差接近 0，但对没见过的橙点预测得一塌糊涂。", "bad"];
+    document.getElementById("msg").innerHTML = '<span class="verdict ' + v[2] + '">' + v[0] + "</span>：" + v[1];
+  }
+  dIn.oninput = render;
+  document.querySelectorAll("[data-d]").forEach(function (b) { b.onclick = function () { dIn.value = b.dataset.d; render(); }; });
+  window.addEventListener("resize", render);
+  render();
+})();
+</script>
+<script src="../common/sim.js"></script>
+</body>
+</html>

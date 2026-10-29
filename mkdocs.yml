@@ -48,6 +48,9 @@ nav:
   - "第 9 章 行业应用、伦理与法规": chapters/09-applications-ethics/index.md
   - 交互动画:
     - sims/index.md
+    - "曲线拟合与过拟合": sims/curve-fitting/index.md
+    - "K 近邻与 K 均值": sims/knn-kmeans/index.md
+    - "阈值与混淆矩阵": sims/threshold-confusion/index.md
   - 学习图谱: learning-graph/index.md
   - 常见问题: faq/index.md
   - "在线模拟卷": exam/index.md

@@ -30,16 +30,16 @@
 |---|---|---|---|---|---|---|
 | [第 1 章](chapters/01-overview/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 2 章](chapters/02-search-knowledge/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
-| [第 3 章](chapters/03-machine-learning/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
+| [第 3 章](chapters/03-machine-learning/index.md) | 1.3 万 | 2 | 30（25） | 30 | 10 | 3 |
 | [第 4 章](chapters/04-deep-learning/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 5 章](chapters/05-nlp-llm/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 6 章](chapters/06-computer-vision/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 7 章](chapters/07-speech/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 8 章](chapters/08-rl-agents/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 9 章](chapters/09-applications-ethics/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
-| **合计** | **0.2 万** | **18** | **0（0）** | **0** | **0** | **0** |
+| **合计** | **1.5 万** | **18** | **30（25）** | **30** | **10** | **3** |
 
-正文字数只统计汉字，不含代码和课后练习；单选、多选和判断题可以在网页上直接作答。配套学习资源：[交互动画](sims/index.md) 0 个 · [学习图谱](learning-graph/index.md) 0 个概念 · [常见问题](faq/index.md) 0 问 · [术语表](appendix/glossary.md) 0 条。
+正文字数只统计汉字，不含代码和课后练习；单选、多选和判断题可以在网页上直接作答。配套学习资源：[交互动画](sims/index.md) 3 个 · [学习图谱](learning-graph/index.md) 30 个概念 · [常见问题](faq/index.md) 0 问 · [术语表](appendix/glossary.md) 30 条。
 
 <!-- stats:end -->
 
