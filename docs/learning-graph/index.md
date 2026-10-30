@@ -19,7 +19,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **125 个概念、154 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **150 个概念、185 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
@@ -174,5 +174,35 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [幻觉](../appendix/glossary.md#g-幻觉) | 语言与大模型 | [自回归生成](../appendix/glossary.md#g-自回归生成) |
     | [知识截止](../appendix/glossary.md#g-知识截止) | 语言与大模型 | [预训练](../appendix/glossary.md#g-预训练) |
     | [检索增强生成](../appendix/glossary.md#g-检索增强生成) | 语言与大模型 | [幻觉](../appendix/glossary.md#g-幻觉)、[余弦相似度](../appendix/glossary.md#g-余弦相似度) |
+
+??? note "第 6 章 计算机视觉（25 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [计算机视觉](../appendix/glossary.md#g-计算机视觉) | 计算机视觉 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [像素](../appendix/glossary.md#g-像素) | 计算机视觉 | [计算机视觉](../appendix/glossary.md#g-计算机视觉) |
+    | [分辨率](../appendix/glossary.md#g-分辨率) | 计算机视觉 | [像素](../appendix/glossary.md#g-像素) |
+    | [灰度](../appendix/glossary.md#g-灰度) | 计算机视觉 | [像素](../appendix/glossary.md#g-像素) |
+    | [RGB 颜色](../appendix/glossary.md#g-RGB-颜色) | 计算机视觉 | [像素](../appendix/glossary.md#g-像素) |
+    | [通道](../appendix/glossary.md#g-通道) | 计算机视觉 | [RGB 颜色](../appendix/glossary.md#g-RGB-颜色) |
+    | [卷积核](../appendix/glossary.md#g-卷积核) | 计算机视觉 | [像素](../appendix/glossary.md#g-像素) |
+    | [卷积](../appendix/glossary.md#g-卷积) | 计算机视觉 | [卷积神经网络](../appendix/glossary.md#g-卷积神经网络)、[卷积核](../appendix/glossary.md#g-卷积核) |
+    | [池化](../appendix/glossary.md#g-池化) | 计算机视觉 | [卷积](../appendix/glossary.md#g-卷积) |
+    | [图像分类](../appendix/glossary.md#g-图像分类) | 计算机视觉 | [卷积神经网络](../appendix/glossary.md#g-卷积神经网络)、[分类](../appendix/glossary.md#g-分类) |
+    | [目标检测](../appendix/glossary.md#g-目标检测) | 计算机视觉 | [图像分类](../appendix/glossary.md#g-图像分类) |
+    | [图像分割](../appendix/glossary.md#g-图像分割) | 计算机视觉 | [目标检测](../appendix/glossary.md#g-目标检测) |
+    | [视频分析](../appendix/glossary.md#g-视频分析) | 计算机视觉 | [目标检测](../appendix/glossary.md#g-目标检测) |
+    | [交并比](../appendix/glossary.md#g-交并比) | 计算机视觉 | [目标检测](../appendix/glossary.md#g-目标检测) |
+    | [数据标注](../appendix/glossary.md#g-数据标注) | 计算机视觉 | [标签](../appendix/glossary.md#g-标签) |
+    | [标注规范](../appendix/glossary.md#g-标注规范) | 计算机视觉 | [数据标注](../appendix/glossary.md#g-数据标注) |
+    | [人脸识别](../appendix/glossary.md#g-人脸识别) | 计算机视觉 | [目标检测](../appendix/glossary.md#g-目标检测)、[余弦相似度](../appendix/glossary.md#g-余弦相似度) |
+    | [活体检测](../appendix/glossary.md#g-活体检测) | 计算机视觉 | [人脸识别](../appendix/glossary.md#g-人脸识别) |
+    | [文字识别](../appendix/glossary.md#g-文字识别) | 计算机视觉 | [目标检测](../appendix/glossary.md#g-目标检测) |
+    | [工业质检](../appendix/glossary.md#g-工业质检) | 计算机视觉 | [目标检测](../appendix/glossary.md#g-目标检测)、[召回率](../appendix/glossary.md#g-召回率) |
+    | [扩散模型](../appendix/glossary.md#g-扩散模型) | 计算机视觉 | [生成式人工智能](../appendix/glossary.md#g-生成式人工智能) |
+    | [文生图](../appendix/glossary.md#g-文生图) | 计算机视觉 | [扩散模型](../appendix/glossary.md#g-扩散模型)、[提示词](../appendix/glossary.md#g-提示词) |
+    | [多模态大模型](../appendix/glossary.md#g-多模态大模型) | 计算机视觉 | [大语言模型](../appendix/glossary.md#g-大语言模型)、[计算机视觉](../appendix/glossary.md#g-计算机视觉) |
+    | [显式标识](../appendix/glossary.md#g-显式标识) | 计算机视觉 | [文生图](../appendix/glossary.md#g-文生图) |
+    | [隐式标识](../appendix/glossary.md#g-隐式标识) | 计算机视觉 | [文生图](../appendix/glossary.md#g-文生图) |
 
 <!-- graph:end -->

@@ -33,13 +33,13 @@
 | [第 3 章](chapters/03-machine-learning/index.md) | 1.3 万 | 2 | 30（25） | 30 | 10 | 3 |
 | [第 4 章](chapters/04-deep-learning/index.md) | 1.0 万 | 2 | 30（25） | 24 | 12 | 3 |
 | [第 5 章](chapters/05-nlp-llm/index.md) | 1.3 万 | 2 | 30（25） | 26 | 12 | 3 |
-| [第 6 章](chapters/06-computer-vision/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
+| [第 6 章](chapters/06-computer-vision/index.md) | 1.0 万 | 2 | 30（25） | 25 | 10 | 1 |
 | [第 7 章](chapters/07-speech/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 8 章](chapters/08-rl-agents/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
 | [第 9 章](chapters/09-applications-ethics/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
-| **合计** | **6.0 万** | **18** | **150（125）** | **125** | **55** | **14** |
+| **合计** | **6.9 万** | **18** | **180（150）** | **150** | **65** | **15** |
 
-正文字数只统计汉字，不含代码和课后练习；单选、多选和判断题可以在网页上直接作答。配套学习资源：[交互动画](sims/index.md) 14 个 · [学习图谱](learning-graph/index.md) 125 个概念 · [常见问题](faq/index.md) 0 问 · [术语表](appendix/glossary.md) 125 条。
+正文字数只统计汉字，不含代码和课后练习；单选、多选和判断题可以在网页上直接作答。配套学习资源：[交互动画](sims/index.md) 15 个 · [学习图谱](learning-graph/index.md) 150 个概念 · [常见问题](faq/index.md) 0 问 · [术语表](appendix/glossary.md) 150 条。
 
 <!-- stats:end -->
 
@@ -53,7 +53,7 @@
 | [第 3 章 机器学习入门](chapters/03-machine-learning/index.md) | 体验 3-1 分类与聚类<br>体验 3-2 过拟合与混淆矩阵 |
 | [第 4 章 深度学习入门](chapters/04-deep-learning/index.md) | 体验 4-1 神经元与梯度下降<br>体验 4-2 手写数字识别 |
 | [第 5 章 自然语言处理与大模型](chapters/05-nlp-llm/index.md) | 体验 5-1 提示词工程练习<br>体验 5-2 下一个词预测与幻觉核查 |
-| [第 6 章 计算机视觉](chapters/06-computer-vision/index.md) | 体验 6-1 卷积滤镜<br>体验 6-2 识图、OCR 与文生图 |
+| [第 6 章 计算机视觉](chapters/06-computer-vision/index.md) | 体验 6-1 卷积滤镜<br>体验 6-2 识图、OCR 与文生图 { #6-2 } |
 | [第 7 章 语音技术](chapters/07-speech/index.md) | 体验 7-1 声音的模样<br>体验 7-2 语音识别与合成 |
 | [第 8 章 强化学习、生成式 AI 与智能体](chapters/08-rl-agents/index.md) | 体验 8-1 Q 学习格子世界<br>体验 8-2 用扣子或 Dify 搭一个“课程助教”智能体 |
 | [第 9 章 行业应用、伦理与法规](chapters/09-applications-ethics/index.md) | 体验 9-1 信息茧房模拟<br>体验 9-2 AI 生成内容合规检查 |
