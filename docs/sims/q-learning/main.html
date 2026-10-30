@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q 学习格子世界</title>
+<link rel="stylesheet" href="../common/sim.css">
+<style>
+  .wrap { display:grid; grid-template-columns:minmax(0, 1.25fr) minmax(0, 1fr); gap:10px; }
+  @media (max-width:680px) { .wrap { grid-template-columns:1fr; } }
+  #grid { display:grid; gap:2px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden; user-select:none; max-width:460px; }
+  .c { position:relative; aspect-ratio:1; background:#fff; }
+  .c svg { position:absolute; inset:0; width:100%; height:100%; }
+  .c.w { background:#455a64; }
+  .c .lab { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:20px; pointer-events:none; }
+  .c.cur { outline:3px solid var(--warn); outline-offset:-3px; z-index:1; }
+  .sl { display:grid; grid-template-columns:8.5em 1fr 3em; gap:6px; align-items:center; font-size:13px; }
+  #maps button { margin:2px 1px; }
+  .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:6px; }
+  .stat { border:1px solid var(--line); border-radius:6px; padding:4px 8px; font-size:12px; }
+  .stat b { display:block; font-size:17px; color:var(--accent); }
+  #chart { width:100%; height:120px; display:block; border:1px solid var(--line); border-radius:4px; }
+  .upd { font-size:12.5px; line-height:1.7; min-height:5em; }
+</style>
+</head>
+<body>
+<h1>Q 学习格子世界：从乱走到找到宝藏</h1>
+<div class="sub">机器人 🤖 从左上角出发，要找到宝藏 💎（奖励 +10），掉进陷阱 🔥 要扣分，每走一步也扣 1 分。它一开始什么都不知道，只能边走边记：<b>在每个格子往每个方向走，大概能得多少分</b>（Q 值）。每个格子里的四个小三角形就是四个方向的 Q 值：绿色越深越好，红色越深越差。</div>
+
+<div class="row ex"><span class="lbl">地图：</span><span id="maps"></span></div>
+<div class="wrap">
+  <div>
+    <div id="grid"></div>
+    <div class="row"><button id="step">走一步</button><button id="ep">走完一回合</button><button class="main" id="train">训练 50 回合</button><button id="greedy">按学到的路线走</button><button id="reset">清空记忆</button></div>
+  </div>
+  <div>
+    <div class="box" style="margin-top:0">
+      <h2>设置</h2>
+      <div class="sl"><span>探索率 ε</span><input type="range" id="eps" min="0" max="1" step="0.05" value="0.2"><b id="epsv"></b></div>
+      <div class="sl"><span>学习率 α</span><input type="range" id="alpha" min="0.05" max="1" step="0.05" value="0.5"><b id="alphav"></b></div>
+      <div class="sl"><span>折扣 γ</span><input type="range" id="gamma" min="0" max="0.99" step="0.01" value="0.9"><b id="gammav"></b></div>
+      <div class="sl"><span>宝藏奖励</span><input type="range" id="rg" min="1" max="20" step="1" value="10"><b id="rgv"></b></div>
+      <div class="sl"><span>陷阱奖励</span><input type="range" id="rt" min="-20" max="0" step="1" value="-10"><b id="rtv"></b></div>
+      <div class="sl"><span>每走一步</span><input type="range" id="rs" min="-3" max="0" step="0.5" value="-1"><b id="rsv"></b></div>
+      <div class="note">探索率：有多大的机会不按“目前觉得最好的方向”走，而是随便试一个方向。</div>
+    </div>
+    <div class="stats"><div class="stat">已训练回合<b id="sEp">0</b></div><div class="stat">本回合步数<b id="sSt">0</b></div><div class="stat">上回合得分<b id="sR">—</b></div></div>
+  </div>
+</div>
+
+<div class="box"><h2>刚才这一步，Q 值是怎样更新的</h2><div class="upd" id="upd">点“走一步”开始。</div></div>
+<div class="box"><h2>每回合用了多少步（越来越少，说明学会了）</h2><canvas id="chart" width="760" height="120"></canvas><div class="note" id="cnote"></div></div>
+
+<script src="../common/sim.js"></script>
+<script>
+(function () {
+  // 地图：S 起点，G 宝藏，T 陷阱，# 墙，. 空地
+  var MAPS = [
+    { n:"空旷的房间", m:["S......", ".......", ".......", ".......", ".......", "......G"] },
+    { n:"有陷阱", m:["S......", ".......", "..TT...", ".....T.", ".T.....", "...T..G"] },
+    { n:"绕过墙", m:["S..#...", "...#...", "...#.T.", "...#...", ".......", "T..#..G"] },
+    { n:"悬崖边", m:[".......", ".......", ".......", "STTTTTG"] }
+  ];
+  var DIR = [[-1, 0, "上"], [0, 1, "右"], [1, 0, "下"], [0, -1, "左"]];
+  var map, R, Cn, Q, pos, start, epCount = 0, stepCount = 0, epReward = 0, history = [], timer = null, mi = 1;
+  function P() { return { eps:+v("eps"), alpha:+v("alpha"), gamma:+v("gamma"), rg:+v("rg"), rt:+v("rt"), rs:+v("rs") }; }
+  function v(id) { return document.getElementById(id).value; }
+  function cell(r, c) { return map[r][c]; }
+  function load(i) {
+    stop(); mi = i; map = MAPS[i].m; R = map.length; Cn = map[0].length; Q = [];
+    for (var r = 0; r < R; r++) { Q.push([]); for (var c = 0; c < Cn; c++) { Q[r].push([0, 0, 0, 0]); if (cell(r, c) === "S") start = [r, c]; } }
+    pos = start.slice(); epCount = 0; stepCount = 0; epReward = 0; history = [];
+    var g = document.getElementById("grid"); g.style.gridTemplateColumns = "repeat(" + Cn + ", 1fr)";
+    g.style.maxWidth = (Cn * 64) + "px";
+    var h = ""; for (r = 0; r < R; r++) for (c = 0; c < Cn; c++) h += '<div class="c' + (cell(r, c) === "#" ? " w" : "") + '" id="c' + r + "_" + c + '"></div>';
+    g.innerHTML = h;
+    document.querySelectorAll("#maps button").forEach(function (b) { b.classList.toggle("on", +b.dataset.i === i); });
+    document.getElementById("upd").textContent = "点“走一步”开始。"; document.getElementById("sR").textContent = "—";
+    draw();
+  }
+  function color(q, scale) {
+    if (Math.abs(q) < 1e-9) return "#f5f5f5";
+    var t = Math.min(1, Math.abs(q) / scale);
+    return q > 0 ? "rgba(67,160,71," + (0.15 + 0.85 * t) + ")" : "rgba(229,57,53," + (0.15 + 0.85 * t) + ")";
+  }
+  function best(r, c) { var q = Q[r][c], m = Math.max.apply(null, q); var bs = []; q.forEach(function (x, i) { if (x === m) bs.push(i); }); return bs[Math.floor(Math.random() * bs.length)]; }
+  function draw() {
+    var p = P(), scale = Math.max(1, p.rg, -p.rt);
+    for (var r = 0; r < R; r++) for (var c = 0; c < Cn; c++) {
+      var el = document.getElementById("c" + r + "_" + c), t = cell(r, c);
+      el.classList.toggle("cur", r === pos[0] && c === pos[1]);
+      if (t === "#") continue;
+      var lab = r === pos[0] && c === pos[1] ? "🤖" : t === "G" ? "💎" : t === "T" ? "🔥" : t === "S" ? "🏠" : "";
+      var q = Q[r][c], s = '<svg viewBox="0 0 100 100" preserveAspectRatio="none">';
+      if (t !== "G" && t !== "T") {
+        var tri = ["50,50 0,0 100,0", "50,50 100,0 100,100", "50,50 100,100 0,100", "50,50 0,100 0,0"];
+        for (var a = 0; a < 4; a++) s += '<polygon points="' + tri[a] + '" fill="' + color(q[a], scale) + '" stroke="#fff" stroke-width="1.5"/>';
+        if (q.some(function (x) { return x !== 0; })) {
+          var b = q.indexOf(Math.max.apply(null, q)), ax = [[50, 22], [78, 50], [50, 78], [22, 50]][b];
+          if (!lab) s += '<line x1="50" y1="50" x2="' + ax[0] + '" y2="' + ax[1] + '" stroke="#263238" stroke-width="5" stroke-linecap="round"/><circle cx="' + ax[0] + '" cy="' + ax[1] + '" r="6" fill="#263238"/>';
+        }
+      } else s += '<rect width="100" height="100" fill="' + (t === "G" ? "#fff8e1" : "#ffebee") + '"/>';
+      el.innerHTML = s + "</svg>" + '<div class="lab">' + lab + "</div>";
+      el.title = t === "#" ? "墙" : "Q 值：上 " + q[0].toFixed(2) + "，右 " + q[1].toFixed(2) + "，下 " + q[2].toFixed(2) + "，左 " + q[3].toFixed(2);
+    }
+    document.getElementById("sEp").textContent = epCount; document.getElementById("sSt").textContent = stepCount;
+    ["eps", "alpha", "gamma", "rg", "rt", "rs"].forEach(function (id) { document.getElementById(id + "v").textContent = v(id); });
+    drawChart();
+  }
+  function drawChart() {
+    var cv = document.getElementById("chart"), x = cv.getContext("2d"), W = cv.width, H = cv.height;
+    x.clearRect(0, 0, W, H);
+    if (!history.length) { document.getElementById("cnote").textContent = "还没有完成的回合。"; return; }
+    var show = history.slice(-150), mx = Math.max.apply(null, show.map(function (h) { return h[0]; })), bw = W / Math.max(show.length, 30);
+    show.forEach(function (h, i) { var hh = h[0] / mx * (H - 16); x.fillStyle = h[1] === "G" ? "#5c6bc0" : h[1] === "T" ? "#e57373" : "#b0bec5"; x.fillRect(i * bw + 1, H - hh, Math.max(1, bw - 2), hh); });
+    x.fillStyle = "#78909c"; x.font = "11px sans-serif"; x.fillText("最多 " + mx + " 步", 4, 12);
+    var last = history.slice(-10), g = last.filter(function (h) { return h[1] === "G"; }).length;
+    document.getElementById("cnote").innerHTML = "蓝色：找到宝藏；红色：掉进陷阱；灰色：走了 100 步还没找到，强制结束。最近 10 回合中找到宝藏 " + g + " 次，平均 " + (last.reduce(function (a, h) { return a + h[0]; }, 0) / last.length).toFixed(1) + " 步。";
+  }
+  function stepOnce(explain, forceGreedy) {
+    var p = P(), r = pos[0], c = pos[1], a, how;
+    if (!forceGreedy && Math.random() < p.eps) { a = Math.floor(Math.random() * 4); how = "探索：随便选了“" + DIR[a][2] + "”"; }
+    else { a = best(r, c); how = "利用：选目前 Q 值最大的“" + DIR[a][2] + "”"; }
+    var nr = r + DIR[a][0], nc = c + DIR[a][1], bump = false;
+    if (nr < 0 || nc < 0 || nr >= R || nc >= Cn || cell(nr, nc) === "#") { nr = r; nc = c; bump = true; }
+    var t = cell(nr, nc), rew = t === "G" ? p.rg : t === "T" ? p.rt : p.rs, done = t === "G" || t === "T";
+    var old = Q[r][c][a], nextMax = done ? 0 : Math.max.apply(null, Q[nr][nc]), target = rew + p.gamma * nextMax;
+    Q[r][c][a] = old + p.alpha * (target - old);
+    pos = [nr, nc]; stepCount++; epReward += rew;
+    if (explain) {
+      document.getElementById("upd").innerHTML = "在第 " + (r + 1) + " 行第 " + (c + 1) + " 列，" + how + (bump ? "，撞到墙或边界，留在原地" : "，走到第 " + (nr + 1) + " 行第 " + (nc + 1) + " 列") +
+        (t === "G" ? "，找到宝藏！" : t === "T" ? "，掉进陷阱！" : "") + "，得到奖励 <b>" + rew + "</b>。<br>" +
+        "新的 Q = 旧的 Q + 学习率 × (奖励 + 折扣 × 下一格最大的 Q − 旧的 Q)<br><span class='mono'>= " + old.toFixed(2) + " + " + p.alpha + " × (" + rew + " + " + p.gamma + " × " + nextMax.toFixed(2) + " − " + old.toFixed(2) + ") = <b>" + Q[r][c][a].toFixed(2) + "</b></span>" +
+        (done ? "<br><span class='note'>到达终点后没有“下一格”，所以下一格最大的 Q 记为 0。回合结束，机器人回到起点。</span>" : "");
+    }
+    if (done || stepCount >= 100) {
+      history.push([stepCount, done ? t : "X"]); epCount++;
+      document.getElementById("sR").textContent = epReward % 1 ? epReward.toFixed(1) : epReward;
+      pos = start.slice(); stepCount = 0; epReward = 0; return true;
+    }
+    return false;
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } ["ep", "train", "greedy"].forEach(function (id) { document.getElementById(id).disabled = false; }); }
+  function animate(greedy) {
+    stop(); ["ep", "train", "greedy"].forEach(function (id) { document.getElementById(id).disabled = true; });
+    var n = 0;
+    timer = setInterval(function () { var fin = stepOnce(true, greedy); n++; draw(); if (fin || n > 100) stop(); }, 140);
+  }
+  document.getElementById("step").onclick = function () { stop(); stepOnce(true, false); draw(); };
+  document.getElementById("ep").onclick = function () { animate(false); };
+  document.getElementById("greedy").onclick = function () { pos = start.slice(); stepCount = 0; epReward = 0; animate(true); };
+  document.getElementById("train").onclick = function () {
+    stop(); for (var k = 0; k < 50; k++) { var guard = 0; while (!stepOnce(false, false) && guard++ < 200) {} }
+    document.getElementById("upd").textContent = "快速训练了 50 回合（不显示每一步）。看看格子里的箭头：每个格子里最深的绿色三角形，就是机器人学到的“在这里该往哪走”。"; draw();
+  };
+  document.getElementById("reset").onclick = function () { load(mi); };
+  ["eps", "alpha", "gamma", "rg", "rt", "rs"].forEach(function (id) { document.getElementById(id).oninput = draw; });
+  document.getElementById("maps").innerHTML = MAPS.map(function (m, i) { return '<button data-i="' + i + '">' + m.n + "</button>"; }).join("");
+  document.querySelectorAll("#maps button").forEach(function (b) { b.onclick = function () { load(+b.dataset.i); }; });
+  load(1);
+})();
+</script>
+</body>
+</html>

@@ -19,7 +19,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **170 个概念、214 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **191 个概念、242 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
@@ -229,5 +229,31 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [语音克隆](../appendix/glossary.md#g-语音克隆) | 语音技术 | [语音合成](../appendix/glossary.md#g-语音合成)、[声纹](../appendix/glossary.md#g-声纹) |
     | [语音大模型](../appendix/glossary.md#g-语音大模型) | 语音技术 | [语音识别](../appendix/glossary.md#g-语音识别)、[语音合成](../appendix/glossary.md#g-语音合成)、[Token](../appendix/glossary.md#g-Token) |
     | [同声传译](../appendix/glossary.md#g-同声传译) | 语音技术 | [语音大模型](../appendix/glossary.md#g-语音大模型) |
+
+??? note "第 8 章 强化学习与智能体（21 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [强化学习](../appendix/glossary.md#g-强化学习) | 强化学习与智能体 | [行为主义](../appendix/glossary.md#g-行为主义)、[机器学习](../appendix/glossary.md#g-机器学习) |
+    | [智能体](../appendix/glossary.md#g-智能体) | 强化学习与智能体 | [强化学习](../appendix/glossary.md#g-强化学习) |
+    | [环境](../appendix/glossary.md#g-环境) | 强化学习与智能体 | [强化学习](../appendix/glossary.md#g-强化学习) |
+    | [奖励](../appendix/glossary.md#g-奖励) | 强化学习与智能体 | [环境](../appendix/glossary.md#g-环境) |
+    | [策略](../appendix/glossary.md#g-策略) | 强化学习与智能体 | [状态](../appendix/glossary.md#g-状态)、[智能体](../appendix/glossary.md#g-智能体) |
+    | [回报](../appendix/glossary.md#g-回报) | 强化学习与智能体 | [奖励](../appendix/glossary.md#g-奖励) |
+    | [折扣因子](../appendix/glossary.md#g-折扣因子) | 强化学习与智能体 | [回报](../appendix/glossary.md#g-回报) |
+    | [Q 学习](../appendix/glossary.md#g-Q-学习) | 强化学习与智能体 | [奖励](../appendix/glossary.md#g-奖励)、[折扣因子](../appendix/glossary.md#g-折扣因子)、[学习率](../appendix/glossary.md#g-学习率) |
+    | [Q 值](../appendix/glossary.md#g-Q-值) | 强化学习与智能体 | [Q 学习](../appendix/glossary.md#g-Q-学习) |
+    | [探索与利用](../appendix/glossary.md#g-探索与利用) | 强化学习与智能体 | [Q 学习](../appendix/glossary.md#g-Q-学习) |
+    | [探索率](../appendix/glossary.md#g-探索率) | 强化学习与智能体 | [探索与利用](../appendix/glossary.md#g-探索与利用) |
+    | [AI 智能体](../appendix/glossary.md#g-AI-智能体) | 强化学习与智能体 | [大语言模型](../appendix/glossary.md#g-大语言模型)、[智能体](../appendix/glossary.md#g-智能体) |
+    | [ReAct](../appendix/glossary.md#g-ReAct) | 强化学习与智能体 | [AI 智能体](../appendix/glossary.md#g-AI-智能体)、[检索增强生成](../appendix/glossary.md#g-检索增强生成) |
+    | [工具调用](../appendix/glossary.md#g-工具调用) | 强化学习与智能体 | [AI 智能体](../appendix/glossary.md#g-AI-智能体) |
+    | [模型上下文协议](../appendix/glossary.md#g-模型上下文协议) | 强化学习与智能体 | [工具调用](../appendix/glossary.md#g-工具调用) |
+    | [多智能体](../appendix/glossary.md#g-多智能体) | 强化学习与智能体 | [AI 智能体](../appendix/glossary.md#g-AI-智能体) |
+    | [提示注入](../appendix/glossary.md#g-提示注入) | 强化学习与智能体 | [AI 智能体](../appendix/glossary.md#g-AI-智能体) |
+    | [低代码智能体平台](../appendix/glossary.md#g-低代码智能体平台) | 强化学习与智能体 | [AI 智能体](../appendix/glossary.md#g-AI-智能体) |
+    | [工作流](../appendix/glossary.md#g-工作流) | 强化学习与智能体 | [低代码智能体平台](../appendix/glossary.md#g-低代码智能体平台) |
+    | [具身智能](../appendix/glossary.md#g-具身智能) | 强化学习与智能体 | [智能体](../appendix/glossary.md#g-智能体)、[仿真环境](../appendix/glossary.md#g-仿真环境) |
+    | [仿真环境](../appendix/glossary.md#g-仿真环境) | 强化学习与智能体 | [强化学习](../appendix/glossary.md#g-强化学习) |
 
 <!-- graph:end -->
