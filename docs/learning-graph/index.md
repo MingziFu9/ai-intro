@@ -19,7 +19,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **191 个概念、242 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **210 个概念、266 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
@@ -255,5 +255,29 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [工作流](../appendix/glossary.md#g-工作流) | 强化学习与智能体 | [低代码智能体平台](../appendix/glossary.md#g-低代码智能体平台) |
     | [具身智能](../appendix/glossary.md#g-具身智能) | 强化学习与智能体 | [智能体](../appendix/glossary.md#g-智能体)、[仿真环境](../appendix/glossary.md#g-仿真环境) |
     | [仿真环境](../appendix/glossary.md#g-仿真环境) | 强化学习与智能体 | [强化学习](../appendix/glossary.md#g-强化学习) |
+
+??? note "第 9 章 应用、伦理与法规（19 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [自动驾驶](../appendix/glossary.md#g-自动驾驶) | 行业应用 | [卷积神经网络](../appendix/glossary.md#g-卷积神经网络) |
+    | [预测性维护](../appendix/glossary.md#g-预测性维护) | 行业应用 | — |
+    | [推荐系统](../appendix/glossary.md#g-推荐系统) | 行业应用 | — |
+    | [内容审核](../appendix/glossary.md#g-内容审核) | 行业应用 | — |
+    | [人工智能伦理](../appendix/glossary.md#g-人工智能伦理) | 伦理与法规 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [算法偏见](../appendix/glossary.md#g-算法偏见) | 伦理与法规 | [训练集](../appendix/glossary.md#g-训练集)、[人工智能伦理](../appendix/glossary.md#g-人工智能伦理) |
+    | [可解释性](../appendix/glossary.md#g-可解释性) | 伦理与法规 | [人工智能伦理](../appendix/glossary.md#g-人工智能伦理)、[深度学习](../appendix/glossary.md#g-深度学习) |
+    | [信息茧房](../appendix/glossary.md#g-信息茧房) | 伦理与法规 | [推荐系统](../appendix/glossary.md#g-推荐系统)、[人工智能伦理](../appendix/glossary.md#g-人工智能伦理) |
+    | [隐私保护](../appendix/glossary.md#g-隐私保护) | 伦理与法规 | [人工智能伦理](../appendix/glossary.md#g-人工智能伦理) |
+    | [告知同意](../appendix/glossary.md#g-告知同意) | 伦理与法规 | [隐私保护](../appendix/glossary.md#g-隐私保护) |
+    | [最小必要](../appendix/glossary.md#g-最小必要) | 伦理与法规 | [隐私保护](../appendix/glossary.md#g-隐私保护) |
+    | [敏感个人信息](../appendix/glossary.md#g-敏感个人信息) | 伦理与法规 | [隐私保护](../appendix/glossary.md#g-隐私保护)、[人脸识别](../appendix/glossary.md#g-人脸识别) |
+    | [大数据杀熟](../appendix/glossary.md#g-大数据杀熟) | 伦理与法规 | [推荐系统](../appendix/glossary.md#g-推荐系统) |
+    | [人工智能安全](../appendix/glossary.md#g-人工智能安全) | 伦理与法规 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [深度伪造](../appendix/glossary.md#g-深度伪造) | 伦理与法规 | [人工智能安全](../appendix/glossary.md#g-人工智能安全)、[语音克隆](../appendix/glossary.md#g-语音克隆) |
+    | [提示词攻击](../appendix/glossary.md#g-提示词攻击) | 伦理与法规 | [人工智能安全](../appendix/glossary.md#g-人工智能安全)、[提示注入](../appendix/glossary.md#g-提示注入) |
+    | [越狱](../appendix/glossary.md#g-越狱) | 伦理与法规 | [提示词攻击](../appendix/glossary.md#g-提示词攻击) |
+    | [对抗样本](../appendix/glossary.md#g-对抗样本) | 伦理与法规 | [人工智能安全](../appendix/glossary.md#g-人工智能安全)、[卷积神经网络](../appendix/glossary.md#g-卷积神经网络) |
+    | [绿色算力](../appendix/glossary.md#g-绿色算力) | 伦理与法规 | [东数西算](../appendix/glossary.md#g-东数西算)、[算力](../appendix/glossary.md#g-算力) |
 
 <!-- graph:end -->

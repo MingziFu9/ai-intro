@@ -36,10 +36,10 @@
 | [第 6 章](chapters/06-computer-vision/index.md) | 1.0 万 | 2 | 30（25） | 25 | 10 | 1 |
 | [第 7 章](chapters/07-speech/index.md) | 0.8 万 | 2 | 30（25） | 20 | 10 | 1 |
 | [第 8 章](chapters/08-rl-agents/index.md) | 1.0 万 | 2 | 30（25） | 21 | 12 | 2 |
-| [第 9 章](chapters/09-applications-ethics/index.md) | 0.0 万 | 2 | 0（0） | 0 | 0 | 0 |
-| **合计** | **8.7 万** | **18** | **240（200）** | **191** | **87** | **18** |
+| [第 9 章](chapters/09-applications-ethics/index.md) | 1.0 万 | 2 | 30（25） | 19 | 11 | 1 |
+| **合计** | **9.7 万** | **18** | **270（225）** | **210** | **98** | **19** |
 
-正文字数只统计汉字，不含代码和课后练习；单选、多选和判断题可以在网页上直接作答。配套学习资源：[交互动画](sims/index.md) 18 个 · [学习图谱](learning-graph/index.md) 191 个概念 · [常见问题](faq/index.md) 0 问 · [术语表](appendix/glossary.md) 191 条。
+正文字数只统计汉字，不含代码和课后练习；单选、多选和判断题可以在网页上直接作答。配套学习资源：[交互动画](sims/index.md) 19 个 · [学习图谱](learning-graph/index.md) 210 个概念 · [常见问题](faq/index.md) 0 问 · [术语表](appendix/glossary.md) 210 条。
 
 <!-- stats:end -->
 
@@ -56,7 +56,7 @@
 | [第 6 章 计算机视觉](chapters/06-computer-vision/index.md) | 体验 6-1 卷积滤镜<br>体验 6-2 识图、OCR 与文生图 { #6-2 } |
 | [第 7 章 语音技术](chapters/07-speech/index.md) | 体验 7-1 声音的模样<br>体验 7-2 语音识别与合成 |
 | [第 8 章 强化学习、生成式 AI 与智能体](chapters/08-rl-agents/index.md) | 体验 8-1 Q 学习格子世界 { #8-1 }<br>体验 8-2 用扣子或 Dify 搭一个“课程助教”智能体 { #8-2 } |
-| [第 9 章 行业应用、伦理与法规](chapters/09-applications-ethics/index.md) | 体验 9-1 信息茧房模拟<br>体验 9-2 AI 生成内容合规检查 |
+| [第 9 章 行业应用、伦理与法规](chapters/09-applications-ethics/index.md) | 体验 9-1 信息茧房模拟<br>体验 9-2 AI 生成内容合规检查 { #9-2 } |
 
 附录：[A 在线平台与账号指南](appendix/a-platforms.md) · [B 人工智能大事年表](appendix/b-timeline.md) · [C 专业课程地图](appendix/c-course-map.md) · [D 术语表](appendix/glossary.md)
 <!-- toc:end -->
