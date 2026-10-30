@@ -46,7 +46,7 @@ def nav_pages():
                     walk(v) if isinstance(v, list) else pages.append(v)
 
     walk(cfg["nav"])
-    return [p for p in pages if p == "course-description.md" or p.startswith(("chapters/", "appendix/"))]
+    return [p for p in pages if p in ("course-description.md", "faq/index.md", "exam/index.md") or p.startswith(("chapters/", "appendix/"))]
 
 
 def mermaid_figure(m):
