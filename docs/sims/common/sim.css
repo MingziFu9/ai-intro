@@ -1,6 +1,7 @@
 /* 交互动画公共样式：各动画的 main.html 共用 */
 :root { --pos:#43a047; --neg:#e53935; --ink:#263238; --muted:#78909c; --line:#cfd8dc; --accent:#3f51b5; --soft:#e8eaf6; --warn:#ef6c00; --bg:#fff; }
 * { box-sizing:border-box; }
+[hidden] { display:none !important; }
 body { margin:0; padding:12px; font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif; color:var(--ink); background:var(--bg); }
 h1 { font-size:16px; margin:0 0 4px; }
 .sub { color:var(--muted); font-size:12px; margin-bottom:8px; }

@@ -19,18 +19,43 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **30 个概念、34 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **50 个概念、61 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
 下面按章列出每个概念的直接先修概念，便于打印或用读屏软件阅读。
 
+??? note "第 1 章 人工智能概述（20 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [人工智能](../appendix/glossary.md#g-人工智能) | 基础概念 | — |
+    | [图灵测试](../appendix/glossary.md#g-图灵测试) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [中文屋](../appendix/glossary.md#g-中文屋) | 基础概念 | [图灵测试](../appendix/glossary.md#g-图灵测试) |
+    | [弱人工智能](../appendix/glossary.md#g-弱人工智能) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [强人工智能](../appendix/glossary.md#g-强人工智能) | 基础概念 | [弱人工智能](../appendix/glossary.md#g-弱人工智能) |
+    | [通用人工智能](../appendix/glossary.md#g-通用人工智能) | 基础概念 | [强人工智能](../appendix/glossary.md#g-强人工智能) |
+    | [达特茅斯会议](../appendix/glossary.md#g-达特茅斯会议) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [三次浪潮](../appendix/glossary.md#g-三次浪潮) | 基础概念 | [达特茅斯会议](../appendix/glossary.md#g-达特茅斯会议)、[符号主义](../appendix/glossary.md#g-符号主义)、[连接主义](../appendix/glossary.md#g-连接主义) |
+    | [符号主义](../appendix/glossary.md#g-符号主义) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [连接主义](../appendix/glossary.md#g-连接主义) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [行为主义](../appendix/glossary.md#g-行为主义) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [数据](../appendix/glossary.md#g-数据) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [算法](../appendix/glossary.md#g-算法) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [算力](../appendix/glossary.md#g-算力) | 基础概念 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [人工智能三要素](../appendix/glossary.md#g-人工智能三要素) | 基础概念 | [数据](../appendix/glossary.md#g-数据)、[算法](../appendix/glossary.md#g-算法)、[算力](../appendix/glossary.md#g-算力) |
+    | [大模型](../appendix/glossary.md#g-大模型) | 基础概念 | [三次浪潮](../appendix/glossary.md#g-三次浪潮)、[人工智能三要素](../appendix/glossary.md#g-人工智能三要素) |
+    | [生成式人工智能](../appendix/glossary.md#g-生成式人工智能) | 基础概念 | [大模型](../appendix/glossary.md#g-大模型) |
+    | [东数西算](../appendix/glossary.md#g-东数西算) | 基础概念 | [算力](../appendix/glossary.md#g-算力) |
+    | [人工智能产业链](../appendix/glossary.md#g-人工智能产业链) | 基础概念 | [人工智能三要素](../appendix/glossary.md#g-人工智能三要素) |
+    | [人工智能训练师](../appendix/glossary.md#g-人工智能训练师) | 基础概念 | [人工智能产业链](../appendix/glossary.md#g-人工智能产业链) |
+
 ??? note "第 3 章 机器学习入门（30 个概念）"
 
     | 概念 | 类别 | 直接先修 |
     |---|---|---|
-    | [机器学习](../appendix/glossary.md#g-机器学习) | 机器学习 | — |
-    | [样本](../appendix/glossary.md#g-样本) | 机器学习 | [机器学习](../appendix/glossary.md#g-机器学习) |
+    | [机器学习](../appendix/glossary.md#g-机器学习) | 机器学习 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [样本](../appendix/glossary.md#g-样本) | 机器学习 | [机器学习](../appendix/glossary.md#g-机器学习)、[数据](../appendix/glossary.md#g-数据) |
     | [特征](../appendix/glossary.md#g-特征) | 机器学习 | [样本](../appendix/glossary.md#g-样本) |
     | [标签](../appendix/glossary.md#g-标签) | 机器学习 | [样本](../appendix/glossary.md#g-样本) |
     | [模型](../appendix/glossary.md#g-模型) | 机器学习 | [机器学习](../appendix/glossary.md#g-机器学习)、[特征](../appendix/glossary.md#g-特征) |
@@ -46,7 +71,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [线性回归](../appendix/glossary.md#g-线性回归) | 机器学习 | [回归](../appendix/glossary.md#g-回归) |
     | [误差](../appendix/glossary.md#g-误差) | 机器学习 | [线性回归](../appendix/glossary.md#g-线性回归) |
     | [分类](../appendix/glossary.md#g-分类) | 机器学习 | [监督学习](../appendix/glossary.md#g-监督学习) |
-    | [K 近邻](../appendix/glossary.md#g-K-近邻) | 机器学习 | [分类](../appendix/glossary.md#g-分类)、[特征](../appendix/glossary.md#g-特征) |
+    | [K 近邻](../appendix/glossary.md#g-K-近邻) | 机器学习 | [分类](../appendix/glossary.md#g-分类)、[特征](../appendix/glossary.md#g-特征)、[算法](../appendix/glossary.md#g-算法) |
     | [决策树](../appendix/glossary.md#g-决策树) | 机器学习 | [分类](../appendix/glossary.md#g-分类) |
     | [聚类](../appendix/glossary.md#g-聚类) | 机器学习 | [无监督学习](../appendix/glossary.md#g-无监督学习) |
     | [K 均值](../appendix/glossary.md#g-K-均值) | 机器学习 | [聚类](../appendix/glossary.md#g-聚类) |
