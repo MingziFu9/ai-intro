@@ -182,7 +182,7 @@ flowchart LR
 
 ### 2.3.3 A* 搜索：已走的加上还剩的 { #233 }
 
-1968 年，美国斯坦福研究所的哈特（Peter Hart）、尼尔森（Nils Nilsson）和拉斐尔（Bertram Raphael）提出了 [**A* 搜索**](../../appendix/glossary.md#g-A*-搜索 "每次展开“已走的代价 g + 估计剩余代价 h”最小的状态的启发式搜索，h 不高估时能找到最短路线"){ .term }<sup class="cite">[[3]](#ref2-3)</sup>（读作“A 星”），把两者结合起来。它给每个状态算一个分数：
+1968 年，美国斯坦福研究所的哈特（Peter Hart）、尼尔森（Nils Nilsson）和拉斐尔（Bertram Raphael）提出了 [**A\* 搜索**](../../appendix/glossary.md#g-A*-搜索 "每次展开“已走的代价 g + 估计剩余代价 h”最小的状态的启发式搜索，h 不高估时能找到最短路线"){ .term }<sup class="cite">[[3]](#ref2-3)</sup>（读作“A 星”），把两者结合起来。它给每个状态算一个分数：
 
 \[ f = g + h \]
 
