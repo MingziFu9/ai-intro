@@ -64,7 +64,7 @@ process:
     minutes: 8
     content: 8.3–8.4：AlphaGo、AlphaGo Zero 与 AlphaZero，强化学习的其他应用，生成式人工智能全景
     teacher: 用时间线讲 AlphaGo 的三个版本，用全景表梳理文本、图像、语音、视频生成
-    student: 说出 AlphaGo 结合了哪三种技术
+    student: 说出 AlphaGo 结合了哪几种技术
     intent: 把前面各章串起来
   - name: 讲授与演示
     minutes: 10
