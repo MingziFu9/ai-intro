@@ -59,6 +59,9 @@ nav:
     - "手写数字识别": sims/digit-recognition/index.md
     - "梯度下降：蒙着眼睛下山": sims/gradient-descent/index.md
     - "神经元与激活函数": sims/neuron-activation/index.md
+    - "自注意力热力图": sims/self-attention/index.md
+    - "温度与采样": sims/temperature-sampling/index.md
+    - "词向量与余弦相似度": sims/word-vectors/index.md
   - 学习图谱: learning-graph/index.md
   - 常见问题: faq/index.md
   - "在线模拟卷": exam/index.md

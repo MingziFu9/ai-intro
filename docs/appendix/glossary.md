@@ -133,6 +133,32 @@ description: 本书主要术语的中英文名称、简明定义和例子，按�
 
 | 术语 | 英文 | 定义 | 例子 |
 |---|---|---|---|
+| <span id="g-自然语言处理"></span>自然语言处理 | Natural Language Processing, NLP | 让计算机理解、处理和生成人类自然语言的技术 | 投诉分类、机器翻译、智能客服 |
+| <span id="g-分词"></span>分词 | Word Segmentation | 把没有空格的中文句子切分成一个个词 | “我爱北京天安门”→ 我 / 爱 / 北京 / 天安门 |
+| <span id="g-最大匹配法"></span>最大匹配法 | Maximum Matching | 按词典每次尽量切出最长的词的分词方法，简单但遇到歧义容易出错 | “研究生命的起源”被切成“研究生 / 命 / 的 / 起源” |
+| <span id="g-独热编码"></span>独热编码 | One-Hot Encoding | 用只有一个位置是 1、其余都是 0 的一串数字表示一个词的方法 | 词表 5 个词时，“手机”= [1, 0, 0, 0, 0] |
+| <span id="g-词向量"></span>词向量 | Word Vector | 用几十到几百个小数表示一个词、使意思相近的词距离更近的表示方法 | 手机和电脑的词向量很接近，和香蕉相差很远 |
+| <span id="g-余弦相似度"></span>余弦相似度 | Cosine Similarity | 用两个向量方向的接近程度衡量相似度的方法，取值在 −1 到 1 之间 | 手机 (4, 1) 和电脑 (4, 2) 的余弦相似度约 0.98 |
+| <span id="g-语言模型"></span>语言模型 | Language Model | 根据前面的文字预测下一个词概率的模型 | 读到“今天天气很”，预测“好”的概率是 0.5 |
+| <span id="g-自回归生成"></span>自回归生成 | Autoregressive Generation | 每次预测一个词，接到前文后面再预测下一个，逐个生成文字的方式 | 大模型的回答一个字一个字地“打”出来 |
+| <span id="g-Token"></span>Token | Token | 大模型处理文字的基本单位，可以是一个字、一个词或词的一部分，中文常译作“词元” | DeepSeek 中 1 个汉字约 0.6 个 Token |
+| <span id="g-上下文长度"></span>上下文长度 | Context Length | 模型一次能处理的最大 Token 数，对话历史、上传的文件和回答都要放在里面 | 12.8 万个 Token 大约相当于 21 万个汉字 |
+| <span id="g-温度"></span>温度 | Temperature | 调节大模型按概率选词时随机程度的设置，越低越稳定，越高越多样 | 信息抽取用 0～0.3，写文案用 0.8～1.0 |
+| <span id="g-注意力机制"></span>注意力机制 | Attention Mechanism | 根据相关程度为不同位置的信息分配权重并加权求和的机制 | 读到“它”时，最关注前面的“小猫” |
+| <span id="g-Transformer"></span>Transformer | Transformer | 以自注意力为核心、可并行计算的神经网络结构，2017 年提出，是今天大模型的基础 | GPT、BERT、通义千问、DeepSeek 都基于它 |
+| <span id="g-大语言模型"></span>大语言模型 | Large Language Model, LLM | 参数规模巨大、在海量文本上预训练、具有通用语言理解与生成能力的模型，简称大模型 | DeepSeek、通义千问、文心一言 |
+| <span id="g-预训练"></span>预训练 | Pre-training | 在大规模通用数据上训练模型，学习一般的语言规律和知识 | 在数万亿 Token 的网页、书籍上预测下一个词 |
+| <span id="g-基座模型"></span>基座模型 | Base Model | 只经过预训练、尚未进行指令微调的模型 | 问它“中国的首都是哪里？”可能接着续写更多问题 |
+| <span id="g-指令微调"></span>指令微调 | Instruction Tuning, SFT | 用“指令和标准回答”数据继续训练，使模型能遵循人类指令，也叫有监督微调 | “请把下面这段话翻译成英文”→ 给出译文 |
+| <span id="g-人类反馈强化学习"></span>人类反馈强化学习 | Reinforcement Learning from Human Feedback, RLHF | 利用人对回答的偏好排序训练模型，使回答更有用、更安全 | 人对几个回答排序，模型学着写出更好的那种 |
+| <span id="g-对齐"></span>对齐 | Alignment | 让模型的行为符合人的期望和价值观，目标是有用、诚实、无害 | 拒绝教人制作危险物品，不知道时说不知道 |
+| <span id="g-思维链"></span>思维链 | Chain of Thought, CoT | 让模型先写出推理步骤再给出答案的方法 | “请一步一步地分析，最后给出结论” |
+| <span id="g-推理模型"></span>推理模型 | Reasoning Model | 经过训练、回答前先进行较长思考的大模型 | OpenAI o1、DeepSeek-R1 |
+| <span id="g-提示词"></span>提示词 | Prompt | 发给大模型的指令和输入内容 | “你是一名家电客服，请写一条 150 字以内的回复……” |
+| <span id="g-提示词工程"></span>提示词工程 | Prompt Engineering | 研究和改进提示词写法、让大模型更好地完成任务的方法 | 按角色、任务、背景、格式、示例五要素写提示词 |
+| <span id="g-幻觉"></span>幻觉 | Hallucination | 大模型生成看似合理、但与事实不符或凭空编造的内容 | 编造一条“国家规定空调包修六年” |
+| <span id="g-知识截止"></span>知识截止 | Knowledge Cutoff | 大模型的训练数据收集到某个时间就停止，之后发生的事情模型不知道 | 问它昨天的比赛结果，它答不上来或者编一个 |
+| <span id="g-检索增强生成"></span>检索增强生成 | Retrieval-Augmented Generation, RAG | 先检索相关资料，再让大模型根据资料生成回答的技术 | 客服助手先查售后政策，再回答能不能换机 |
 
 ## 第 6 章 计算机视觉
 

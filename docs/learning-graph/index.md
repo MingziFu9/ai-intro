@@ -19,7 +19,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **99 个概念、121 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **125 个概念、154 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
@@ -143,5 +143,36 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [GPU](../appendix/glossary.md#g-GPU) | 深度学习 | [算力](../appendix/glossary.md#g-算力) |
     | [专用 AI 芯片](../appendix/glossary.md#g-专用-AI-芯片) | 深度学习 | [GPU](../appendix/glossary.md#g-GPU) |
     | [神经网络处理器](../appendix/glossary.md#g-神经网络处理器) | 深度学习 | [专用 AI 芯片](../appendix/glossary.md#g-专用-AI-芯片) |
+
+??? note "第 5 章 语言与大模型（26 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [自然语言处理](../appendix/glossary.md#g-自然语言处理) | 语言与大模型 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [分词](../appendix/glossary.md#g-分词) | 语言与大模型 | [自然语言处理](../appendix/glossary.md#g-自然语言处理) |
+    | [最大匹配法](../appendix/glossary.md#g-最大匹配法) | 语言与大模型 | [分词](../appendix/glossary.md#g-分词) |
+    | [独热编码](../appendix/glossary.md#g-独热编码) | 语言与大模型 | [特征](../appendix/glossary.md#g-特征) |
+    | [词向量](../appendix/glossary.md#g-词向量) | 语言与大模型 | [独热编码](../appendix/glossary.md#g-独热编码)、[深度学习](../appendix/glossary.md#g-深度学习) |
+    | [余弦相似度](../appendix/glossary.md#g-余弦相似度) | 语言与大模型 | [词向量](../appendix/glossary.md#g-词向量) |
+    | [语言模型](../appendix/glossary.md#g-语言模型) | 语言与大模型 | [自然语言处理](../appendix/glossary.md#g-自然语言处理)、[自监督学习](../appendix/glossary.md#g-自监督学习) |
+    | [自回归生成](../appendix/glossary.md#g-自回归生成) | 语言与大模型 | [语言模型](../appendix/glossary.md#g-语言模型) |
+    | [Token](../appendix/glossary.md#g-Token) | 语言与大模型 | [语言模型](../appendix/glossary.md#g-语言模型) |
+    | [上下文长度](../appendix/glossary.md#g-上下文长度) | 语言与大模型 | [Token](../appendix/glossary.md#g-Token) |
+    | [温度](../appendix/glossary.md#g-温度) | 语言与大模型 | [语言模型](../appendix/glossary.md#g-语言模型) |
+    | [注意力机制](../appendix/glossary.md#g-注意力机制) | 语言与大模型 | [循环神经网络](../appendix/glossary.md#g-循环神经网络)、[词向量](../appendix/glossary.md#g-词向量) |
+    | [Transformer](../appendix/glossary.md#g-Transformer) | 语言与大模型 | [注意力机制](../appendix/glossary.md#g-注意力机制)、[GPU](../appendix/glossary.md#g-GPU) |
+    | [大语言模型](../appendix/glossary.md#g-大语言模型) | 语言与大模型 | [Transformer](../appendix/glossary.md#g-Transformer)、[大模型](../appendix/glossary.md#g-大模型)、[生成式人工智能](../appendix/glossary.md#g-生成式人工智能) |
+    | [预训练](../appendix/glossary.md#g-预训练) | 语言与大模型 | [大语言模型](../appendix/glossary.md#g-大语言模型) |
+    | [基座模型](../appendix/glossary.md#g-基座模型) | 语言与大模型 | [预训练](../appendix/glossary.md#g-预训练) |
+    | [指令微调](../appendix/glossary.md#g-指令微调) | 语言与大模型 | [基座模型](../appendix/glossary.md#g-基座模型) |
+    | [人类反馈强化学习](../appendix/glossary.md#g-人类反馈强化学习) | 语言与大模型 | [指令微调](../appendix/glossary.md#g-指令微调) |
+    | [对齐](../appendix/glossary.md#g-对齐) | 语言与大模型 | [人类反馈强化学习](../appendix/glossary.md#g-人类反馈强化学习) |
+    | [思维链](../appendix/glossary.md#g-思维链) | 语言与大模型 | [大语言模型](../appendix/glossary.md#g-大语言模型) |
+    | [推理模型](../appendix/glossary.md#g-推理模型) | 语言与大模型 | [思维链](../appendix/glossary.md#g-思维链) |
+    | [提示词](../appendix/glossary.md#g-提示词) | 语言与大模型 | [大语言模型](../appendix/glossary.md#g-大语言模型) |
+    | [提示词工程](../appendix/glossary.md#g-提示词工程) | 语言与大模型 | [提示词](../appendix/glossary.md#g-提示词) |
+    | [幻觉](../appendix/glossary.md#g-幻觉) | 语言与大模型 | [自回归生成](../appendix/glossary.md#g-自回归生成) |
+    | [知识截止](../appendix/glossary.md#g-知识截止) | 语言与大模型 | [预训练](../appendix/glossary.md#g-预训练) |
+    | [检索增强生成](../appendix/glossary.md#g-检索增强生成) | 语言与大模型 | [幻觉](../appendix/glossary.md#g-幻觉)、[余弦相似度](../appendix/glossary.md#g-余弦相似度) |
 
 <!-- graph:end -->
