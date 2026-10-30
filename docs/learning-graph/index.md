@@ -19,7 +19,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **75 个概念、91 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **99 个概念、121 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
@@ -106,7 +106,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [聚类](../appendix/glossary.md#g-聚类) | 机器学习 | [无监督学习](../appendix/glossary.md#g-无监督学习) |
     | [K 均值](../appendix/glossary.md#g-K-均值) | 机器学习 | [聚类](../appendix/glossary.md#g-聚类) |
     | [欠拟合](../appendix/glossary.md#g-欠拟合) | 机器学习 | [过拟合](../appendix/glossary.md#g-过拟合) |
-    | [过拟合](../appendix/glossary.md#g-过拟合) | 机器学习 | [泛化能力](../appendix/glossary.md#g-泛化能力)、[训练集](../appendix/glossary.md#g-训练集) |
+    | [过拟合](../appendix/glossary.md#g-过拟合) | 机器学习 | [泛化能力](../appendix/glossary.md#g-泛化能力)、[训练集](../appendix/glossary.md#g-训练集)、[训练轮次](../appendix/glossary.md#g-训练轮次) |
     | [准确率](../appendix/glossary.md#g-准确率) | 机器学习 | [分类](../appendix/glossary.md#g-分类) |
     | [类别不平衡](../appendix/glossary.md#g-类别不平衡) | 机器学习 | [准确率](../appendix/glossary.md#g-准确率) |
     | [混淆矩阵](../appendix/glossary.md#g-混淆矩阵) | 机器学习 | [准确率](../appendix/glossary.md#g-准确率) |
@@ -114,5 +114,34 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [召回率](../appendix/glossary.md#g-召回率) | 机器学习 | [混淆矩阵](../appendix/glossary.md#g-混淆矩阵) |
     | [阈值](../appendix/glossary.md#g-阈值) | 机器学习 | [精确率](../appendix/glossary.md#g-精确率)、[召回率](../appendix/glossary.md#g-召回率) |
     | [自动机器学习](../appendix/glossary.md#g-自动机器学习) | 机器学习 | [模型](../appendix/glossary.md#g-模型) |
+
+??? note "第 4 章 深度学习入门（24 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [人工神经元](../appendix/glossary.md#g-人工神经元) | 深度学习 | [连接主义](../appendix/glossary.md#g-连接主义) |
+    | [权重](../appendix/glossary.md#g-权重) | 深度学习 | [人工神经元](../appendix/glossary.md#g-人工神经元) |
+    | [偏置](../appendix/glossary.md#g-偏置) | 深度学习 | [人工神经元](../appendix/glossary.md#g-人工神经元) |
+    | [激活函数](../appendix/glossary.md#g-激活函数) | 深度学习 | [人工神经元](../appendix/glossary.md#g-人工神经元) |
+    | [感知机](../appendix/glossary.md#g-感知机) | 深度学习 | [人工神经元](../appendix/glossary.md#g-人工神经元) |
+    | [输入层](../appendix/glossary.md#g-输入层) | 深度学习 | — |
+    | [隐藏层](../appendix/glossary.md#g-隐藏层) | 深度学习 | [人工神经元](../appendix/glossary.md#g-人工神经元) |
+    | [输出层](../appendix/glossary.md#g-输出层) | 深度学习 | — |
+    | [多层神经网络](../appendix/glossary.md#g-多层神经网络) | 深度学习 | [感知机](../appendix/glossary.md#g-感知机)、[输入层](../appendix/glossary.md#g-输入层)、[隐藏层](../appendix/glossary.md#g-隐藏层)、[输出层](../appendix/glossary.md#g-输出层) |
+    | [深度学习](../appendix/glossary.md#g-深度学习) | 深度学习 | [多层神经网络](../appendix/glossary.md#g-多层神经网络)、[机器学习](../appendix/glossary.md#g-机器学习)、[特征](../appendix/glossary.md#g-特征) |
+    | [损失函数](../appendix/glossary.md#g-损失函数) | 深度学习 | [误差](../appendix/glossary.md#g-误差) |
+    | [梯度下降](../appendix/glossary.md#g-梯度下降) | 深度学习 | [损失函数](../appendix/glossary.md#g-损失函数)、[权重](../appendix/glossary.md#g-权重) |
+    | [学习率](../appendix/glossary.md#g-学习率) | 深度学习 | [梯度下降](../appendix/glossary.md#g-梯度下降) |
+    | [局部最低点](../appendix/glossary.md#g-局部最低点) | 深度学习 | [梯度下降](../appendix/glossary.md#g-梯度下降) |
+    | [反向传播](../appendix/glossary.md#g-反向传播) | 深度学习 | [梯度下降](../appendix/glossary.md#g-梯度下降) |
+    | [训练轮次](../appendix/glossary.md#g-训练轮次) | 深度学习 | [训练集](../appendix/glossary.md#g-训练集) |
+    | [卷积神经网络](../appendix/glossary.md#g-卷积神经网络) | 深度学习 | [深度学习](../appendix/glossary.md#g-深度学习) |
+    | [循环神经网络](../appendix/glossary.md#g-循环神经网络) | 深度学习 | [深度学习](../appendix/glossary.md#g-深度学习) |
+    | [长短期记忆网络](../appendix/glossary.md#g-长短期记忆网络) | 深度学习 | [循环神经网络](../appendix/glossary.md#g-循环神经网络) |
+    | [梯度消失](../appendix/glossary.md#g-梯度消失) | 深度学习 | [反向传播](../appendix/glossary.md#g-反向传播)、[激活函数](../appendix/glossary.md#g-激活函数) |
+    | [深度学习框架](../appendix/glossary.md#g-深度学习框架) | 深度学习 | [深度学习](../appendix/glossary.md#g-深度学习) |
+    | [GPU](../appendix/glossary.md#g-GPU) | 深度学习 | [算力](../appendix/glossary.md#g-算力) |
+    | [专用 AI 芯片](../appendix/glossary.md#g-专用-AI-芯片) | 深度学习 | [GPU](../appendix/glossary.md#g-GPU) |
+    | [神经网络处理器](../appendix/glossary.md#g-神经网络处理器) | 深度学习 | [专用 AI 芯片](../appendix/glossary.md#g-专用-AI-芯片) |
 
 <!-- graph:end -->
