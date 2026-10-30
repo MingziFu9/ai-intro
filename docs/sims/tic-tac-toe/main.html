@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>井字棋对弈：极小极大</title>
+<link rel="stylesheet" href="../common/sim.css">
+<style>
+  .wrap { display:grid; grid-template-columns:260px 1fr; gap:14px; align-items:start; }
+  @media (max-width:560px) { .wrap { grid-template-columns:1fr; } }
+  #board { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); gap:4px; width:240px; height:240px; }
+  .sq { border:2px solid var(--line); border-radius:8px; background:#fff; font-size:44px; font-weight:bold; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; color:var(--ink); padding:0; }
+  .sq.x { color:var(--accent); } .sq.o { color:var(--warn); }
+  .sq.win { background:#fff9c4; }
+  .sq .sc { position:absolute; font-size:14px; font-weight:bold; }
+  .sc.p { color:var(--pos); } .sc.z { color:var(--muted); } .sc.n { color:var(--neg); }
+  .tally { font-size:13px; }
+</style>
+</head>
+<body>
+<h1>井字棋对弈：计算机用极小极大算法下棋</h1>
+<div class="sub">你执 ×，计算机执 ○。三个子连成一线（横、竖、斜）就赢。计算机会把每一种可能的后续都算到棋局结束，再选对它最有利的一步。</div>
+<div class="wrap">
+  <div>
+    <div id="board" aria-label="棋盘"></div>
+    <div class="row"><button class="main" id="new">新的一局（我先走）</button><button id="newo">新的一局（计算机先走）</button></div>
+  </div>
+  <div>
+    <div class="row"><label><input type="checkbox" id="show"> 显示评分</label><label><input type="checkbox" id="prune" checked> 剪枝</label></div>
+    <div class="box"><h2>计算机刚才检查了多少个局面</h2><div class="big" id="nodes">—</div><div class="note" id="nodenote"></div></div>
+    <div class="box"><div class="msg" id="msg"></div></div>
+    <div class="box tally" id="tally"></div>
+    <div class="note">评分是从你（×）的角度算的：<b class="ok">+1</b> 表示你走这里、双方都不犯错的话你能赢；<b>0</b> 表示会和棋；<b class="bad">−1</b> 表示会输。打开“剪枝”后，计算机跳过不可能更好的分支，选出的棋不变，但检查的局面少得多。</div>
+  </div>
+</div>
+<script>
+(function () {
+  var LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  var b, turn, over, count, tally = { win:0, lose:0, draw:0 };
+  var boardEl = document.getElementById("board"), sq = [];
+  for (var i = 0; i < 9; i++) { var e = document.createElement("button"); e.className = "sq"; e.dataset.i = i; e.onclick = function () { play(+this.dataset.i); }; boardEl.appendChild(e); sq.push(e); }
+  function winner(s) { for (var k = 0; k < 8; k++) { var L = LINES[k]; if (s[L[0]] && s[L[0]] === s[L[1]] && s[L[1]] === s[L[2]]) return { p:s[L[0]], line:L }; } return s.indexOf("") < 0 ? { p:"draw" } : null; }
+  // 从 O（计算机）的角度：O 赢 +1，X 赢 -1。toMove 为当前要走的一方
+  function minimax(s, toMove, alpha, beta, prune) {
+    count++;
+    var w = winner(s);
+    if (w) return w.p === "O" ? 1 : w.p === "X" ? -1 : 0;
+    var best = toMove === "O" ? -2 : 2;
+    for (var k = 0; k < 9; k++) {
+      if (s[k]) continue;
+      s[k] = toMove; var v = minimax(s, toMove === "O" ? "X" : "O", alpha, beta, prune); s[k] = "";
+      if (toMove === "O") { if (v > best) best = v; if (best > alpha) alpha = best; }
+      else { if (v < best) best = v; if (best < beta) beta = best; }
+      if (prune && alpha >= beta) break;
+    }
+    return best;
+  }
+  function scoresFor(player) { // 每个空格的评分，从 X 的角度
+    var out = [];
+    for (var k = 0; k < 9; k++) {
+      if (b[k]) { out.push(null); continue; }
+      b[k] = player; var v = minimax(b, player === "O" ? "X" : "O", -2, 2, true); b[k] = "";
+      out.push(-v);
+    }
+    return out;
+  }
+  function aiMove() {
+    var prune = document.getElementById("prune").checked, best = -2, move = -1; count = 0;
+    for (var k = 0; k < 9; k++) {
+      if (b[k]) continue;
+      b[k] = "O"; var v = minimax(b, "X", -2, 2, prune); b[k] = "";
+      if (v > best) { best = v; move = k; }
+    }
+    document.getElementById("nodes").textContent = count.toLocaleString("zh-CN");
+    document.getElementById("nodenote").textContent = (prune ? "剪枝：开。" : "剪枝：关。") + "计算机在 " + b.filter(function (c) { return !c; }).length + " 个空格中选择，判断结果：" + (best > 0 ? "它能赢" : best === 0 ? "双方都不犯错会和棋" : "它会输") + "。";
+    b[move] = "O";
+  }
+  function play(k) {
+    if (over || b[k] || turn !== "X") return;
+    b[k] = "X"; turn = "O"; draw();
+    if (check()) return;
+    setTimeout(function () { aiMove(); turn = "X"; draw(); check(); }, 200);
+  }
+  function check() {
+    var w = winner(b); if (!w) { msg(turn === "X" ? "轮到你了。" : "计算机思考中……"); return false; }
+    over = true;
+    if (w.p === "draw") { tally.draw++; msg("和棋！只要你不犯错，计算机也赢不了你。"); }
+    else if (w.p === "X") { tally.win++; msg("你赢了！"); }
+    else { tally.lose++; msg("计算机赢了。打开“显示评分”，看看你哪一步走出了 −1。"); }
+    if (w.line) w.line.forEach(function (i) { sq[i].classList.add("win"); });
+    showTally(); return true;
+  }
+  function draw() {
+    var sc = (!over && turn === "X" && document.getElementById("show").checked) ? scoresFor("X") : null;
+    sq.forEach(function (e, i) {
+      e.className = "sq" + (b[i] === "X" ? " x" : b[i] === "O" ? " o" : "");
+      e.innerHTML = b[i] === "X" ? "×" : b[i] === "O" ? "○" : "";
+      if (sc && sc[i] !== null) e.innerHTML = "<span class='sc " + (sc[i] > 0 ? "p" : sc[i] < 0 ? "n" : "z") + "'>" + (sc[i] > 0 ? "+1" : sc[i] < 0 ? "−1" : "0") + "</span>";
+    });
+  }
+  function msg(t) { document.getElementById("msg").textContent = t; }
+  function showTally() { document.getElementById("tally").innerHTML = "战绩：你赢 " + tally.win + " 局，计算机赢 " + tally.lose + " 局，和棋 " + tally.draw + " 局。"; }
+  function start(aiFirst) {
+    b = ["", "", "", "", "", "", "", "", ""]; over = false; turn = "X";
+    document.getElementById("nodes").textContent = "—"; document.getElementById("nodenote").textContent = "";
+    if (aiFirst) { aiMove(); }
+    draw(); msg("轮到你了。");
+  }
+  document.getElementById("new").onclick = function () { start(false); };
+  document.getElementById("newo").onclick = function () { start(true); };
+  document.getElementById("show").onchange = draw;
+  showTally(); start(false);
+})();
+</script>
+<script src="../common/sim.js"></script>
+</body>
+</html>

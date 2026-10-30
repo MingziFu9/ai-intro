@@ -19,7 +19,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **50 个概念、61 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **75 个概念、91 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
@@ -50,11 +50,41 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [人工智能产业链](../appendix/glossary.md#g-人工智能产业链) | 基础概念 | [人工智能三要素](../appendix/glossary.md#g-人工智能三要素) |
     | [人工智能训练师](../appendix/glossary.md#g-人工智能训练师) | 基础概念 | [人工智能产业链](../appendix/glossary.md#g-人工智能产业链) |
 
+??? note "第 2 章 搜索与知识表示（25 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [状态](../appendix/glossary.md#g-状态) | 搜索与推理 | [问题求解](../appendix/glossary.md#g-问题求解) |
+    | [问题求解](../appendix/glossary.md#g-问题求解) | 搜索与推理 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [状态空间](../appendix/glossary.md#g-状态空间) | 搜索与推理 | [状态](../appendix/glossary.md#g-状态) |
+    | [搜索树](../appendix/glossary.md#g-搜索树) | 搜索与推理 | [状态空间](../appendix/glossary.md#g-状态空间) |
+    | [组合爆炸](../appendix/glossary.md#g-组合爆炸) | 搜索与推理 | [状态空间](../appendix/glossary.md#g-状态空间) |
+    | [盲目搜索](../appendix/glossary.md#g-盲目搜索) | 搜索与推理 | [搜索树](../appendix/glossary.md#g-搜索树) |
+    | [广度优先搜索](../appendix/glossary.md#g-广度优先搜索) | 搜索与推理 | [盲目搜索](../appendix/glossary.md#g-盲目搜索) |
+    | [深度优先搜索](../appendix/glossary.md#g-深度优先搜索) | 搜索与推理 | [盲目搜索](../appendix/glossary.md#g-盲目搜索) |
+    | [启发函数](../appendix/glossary.md#g-启发函数) | 搜索与推理 | [状态空间](../appendix/glossary.md#g-状态空间) |
+    | [启发式搜索](../appendix/glossary.md#g-启发式搜索) | 搜索与推理 | [启发函数](../appendix/glossary.md#g-启发函数)、[广度优先搜索](../appendix/glossary.md#g-广度优先搜索) |
+    | [A* 搜索](../appendix/glossary.md#g-A*-搜索) | 搜索与推理 | [启发式搜索](../appendix/glossary.md#g-启发式搜索) |
+    | [博弈搜索](../appendix/glossary.md#g-博弈搜索) | 搜索与推理 | [搜索树](../appendix/glossary.md#g-搜索树) |
+    | [极小极大算法](../appendix/glossary.md#g-极小极大算法) | 搜索与推理 | [博弈搜索](../appendix/glossary.md#g-博弈搜索) |
+    | [剪枝](../appendix/glossary.md#g-剪枝) | 搜索与推理 | [极小极大算法](../appendix/glossary.md#g-极小极大算法) |
+    | [知识表示](../appendix/glossary.md#g-知识表示) | 知识表示 | [符号主义](../appendix/glossary.md#g-符号主义) |
+    | [产生式规则](../appendix/glossary.md#g-产生式规则) | 知识表示 | [知识表示](../appendix/glossary.md#g-知识表示) |
+    | [语义网络](../appendix/glossary.md#g-语义网络) | 知识表示 | [知识表示](../appendix/glossary.md#g-知识表示) |
+    | [知识图谱](../appendix/glossary.md#g-知识图谱) | 知识表示 | [语义网络](../appendix/glossary.md#g-语义网络) |
+    | [三元组](../appendix/glossary.md#g-三元组) | 知识表示 | [知识图谱](../appendix/glossary.md#g-知识图谱) |
+    | [推理](../appendix/glossary.md#g-推理) | 知识表示 | [知识表示](../appendix/glossary.md#g-知识表示) |
+    | [正向推理](../appendix/glossary.md#g-正向推理) | 知识表示 | [推理](../appendix/glossary.md#g-推理)、[产生式规则](../appendix/glossary.md#g-产生式规则) |
+    | [反向推理](../appendix/glossary.md#g-反向推理) | 知识表示 | [推理](../appendix/glossary.md#g-推理)、[产生式规则](../appendix/glossary.md#g-产生式规则) |
+    | [专家系统](../appendix/glossary.md#g-专家系统) | 知识表示 | [产生式规则](../appendix/glossary.md#g-产生式规则)、[推理](../appendix/glossary.md#g-推理) |
+    | [知识库](../appendix/glossary.md#g-知识库) | 知识表示 | [专家系统](../appendix/glossary.md#g-专家系统) |
+    | [推理机](../appendix/glossary.md#g-推理机) | 知识表示 | [专家系统](../appendix/glossary.md#g-专家系统) |
+
 ??? note "第 3 章 机器学习入门（30 个概念）"
 
     | 概念 | 类别 | 直接先修 |
     |---|---|---|
-    | [机器学习](../appendix/glossary.md#g-机器学习) | 机器学习 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [机器学习](../appendix/glossary.md#g-机器学习) | 机器学习 | [人工智能](../appendix/glossary.md#g-人工智能)、[专家系统](../appendix/glossary.md#g-专家系统) |
     | [样本](../appendix/glossary.md#g-样本) | 机器学习 | [机器学习](../appendix/glossary.md#g-机器学习)、[数据](../appendix/glossary.md#g-数据) |
     | [特征](../appendix/glossary.md#g-特征) | 机器学习 | [样本](../appendix/glossary.md#g-样本) |
     | [标签](../appendix/glossary.md#g-标签) | 机器学习 | [样本](../appendix/glossary.md#g-样本) |

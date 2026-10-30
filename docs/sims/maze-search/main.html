@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>迷宫寻路：三种搜索比一比</title>
+<link rel="stylesheet" href="../common/sim.css">
+<style>
+  #grid { max-width:600px; margin:0 auto; display:grid; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden; touch-action:manipulation; user-select:none; }
+  .c { aspect-ratio:1; background:#fff; cursor:pointer; font-size:9px; display:flex; align-items:center; justify-content:center; color:#90a4ae; }
+  .c.w { background:#455a64; }
+  .c.v { background:#bbdefb; } .c.f { background:#fff59d; }
+  .c.p { background:#ffb74d; }
+  .c.s { background:var(--pos); color:#fff; } .c.g { background:var(--neg); color:#fff; }
+  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .stat { border:1px solid var(--line); border-radius:6px; padding:4px 8px; font-size:12.5px; }
+  .stat b { display:block; font-size:18px; color:var(--accent); }
+  .legend span { display:inline-block; width:12px; height:12px; vertical-align:-2px; margin:0 3px 0 8px; border:1px solid var(--line); }
+</style>
+</head>
+<body>
+<h1>迷宫寻路：广度优先、深度优先、A* 比一比</h1>
+<div class="sub">绿色是起点，红色是终点。选一种搜索方法，点“自动运行”或“走一步”，观察计算机怎样一格格地展开。点空白格子加墙，点墙去掉。</div>
+
+<div class="row tabs" id="algs">
+  <button data-a="bfs" class="on">广度优先</button><button data-a="dfs">深度优先</button><button data-a="astar">A*（曼哈顿距离）</button>
+</div>
+<div id="grid" aria-label="迷宫"></div>
+<div class="row legend"><span style="background:#bbdefb"></span>已展开<span style="background:#fff59d"></span>待展开<span style="background:#ffb74d"></span>找到的路线<span style="background:#455a64"></span>墙</div>
+<div class="row">
+  <button class="main" id="run">自动运行</button><button id="step">走一步</button><button id="reset">重置</button>
+  <span class="lbl">速度</span><input type="range" id="speed" min="1" max="10" value="6" style="max-width:120px" aria-label="速度">
+</div>
+<div class="row ex"><button id="maze">换一个迷宫</button><button id="clear">清空墙壁</button><span class="lbl">　当前：<span id="mname"></span></span></div>
+<div class="stats">
+  <div class="stat">展开格子数<b id="nexp">0</b></div>
+  <div class="stat">路线长度（步）<b id="nlen">—</b></div>
+  <div class="stat">待展开格子数<b id="nfr">0</b></div>
+</div>
+<div class="box"><div class="msg" id="msg"></div></div>
+<div class="note">说明：每走一步代价为 1。深度优先的方向顺序固定为“上、右、下、左”；A* 的启发函数是到终点的曼哈顿距离（横向差几格 + 纵向差几格），f 相同时先展开 h 小的。</div>
+
+<script>
+(function () {
+  var W = 17, H = 11;
+  var MAZES = [
+    { name:"迷宫 1", rows:[
+      ".................",
+      ".#####.#######.#.",
+      ".#...#.......#.#.",
+      ".#.#.#######.#.#.",
+      ".#.#.........#.#.",
+      ".#.###########.#.",
+      ".#.............#.",
+      ".#############.#.",
+      "...............#.",
+      "##############.#.",
+      "................." ], s:[0,5], g:[16,10] },
+    { name:"迷宫 2", rows:[
+      "........#........",
+      ".######.#.######.",
+      ".#......#......#.",
+      ".#.##########..#.",
+      ".#.#........#..#.",
+      ".#.#.######.#..#.",
+      ".#...#....#.#....",
+      ".#####.##.#.####.",
+      ".......#..#......",
+      "#######.###.####.",
+      "................." ], s:[0,0], g:[9,6] },
+    { name:"迷宫 3（有一道长墙）", rows:[
+      ".................",
+      ".................",
+      ".......#.........",
+      ".......#.........",
+      ".......#.........",
+      ".......#.........",
+      ".......#.........",
+      ".......#.........",
+      ".......#.........",
+      ".................",
+      "................." ], s:[3,5], g:[13,5] }
+  ];
+  var mi = 0, wall, S, G, alg = "bfs", st, timer = null;
+  var grid = document.getElementById("grid"); grid.style.gridTemplateColumns = "repeat(" + W + ",1fr)";
+  var cells = [];
+  for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+    var d = document.createElement("div"); d.className = "c"; d.dataset.x = x; d.dataset.y = y;
+    d.onclick = function () { var x = +this.dataset.x, y = +this.dataset.y; if ((x === S[0] && y === S[1]) || (x === G[0] && y === G[1])) return; wall[y][x] = !wall[y][x]; reset(); };
+    grid.appendChild(d); cells.push(d);
+  }
+  function load() { var m = MAZES[mi]; wall = m.rows.map(function (r) { return r.split("").map(function (c) { return c === "#"; }); }); S = m.s; G = m.g; document.getElementById("mname").textContent = m.name; reset(); }
+  function key(x, y) { return y * W + x; }
+  function h(x, y) { return Math.abs(x - G[0]) + Math.abs(y - G[1]); }
+  var DIRS = [[0,-1],[1,0],[0,1],[-1,0]]; // 上 右 下 左
+  function reset() {
+    stop();
+    st = { frontier:[{ x:S[0], y:S[1], g:0 }], parent:{}, seen:{}, closed:{}, done:false, path:null, n:0 };
+    st.seen[key(S[0], S[1])] = true; st.parent[key(S[0], S[1])] = -1;
+    draw(); msg("点“自动运行”或“走一步”开始搜索。");
+  }
+  function pick() {
+    var F = st.frontier;
+    if (alg === "bfs") return F.shift();
+    if (alg === "dfs") return F.pop();
+    var bi = 0;
+    for (var i = 1; i < F.length; i++) {
+      var a = F[i], b = F[bi], fa = a.g + h(a.x, a.y), fb = b.g + h(b.x, b.y);
+      if (fa < fb || (fa === fb && h(a.x, a.y) < h(b.x, b.y))) bi = i;
+    }
+    return F.splice(bi, 1)[0];
+  }
+  function step() {
+    if (st.done) return false;
+    if (!st.frontier.length) { st.done = true; msg("待展开的格子用完了，没有找到路线：终点被墙围住了。"); draw(); return false; }
+    var c = pick(), k = key(c.x, c.y);
+    if (st.closed[k]) return true;
+    st.closed[k] = true; st.n++;
+    if (c.x === G[0] && c.y === G[1]) {
+      st.done = true; st.path = [];
+      for (var p = k; p !== -1; p = st.parent[p]) st.path.push(p);
+      draw();
+      var names = { bfs:"广度优先", dfs:"深度优先", astar:"A*" };
+      msg(names[alg] + "找到了终点：展开了 " + st.n + " 个格子，路线长 " + (st.path.length - 1) + " 步。" +
+        (alg === "dfs" ? "深度优先找到的不一定是最短路线，换成广度优先或 A* 比一比。" : alg === "bfs" ? "每步代价相同，广度优先找到的就是最短路线。" : "A* 找到的也是最短路线，但通常展开的格子比广度优先少。"));
+      return false;
+    }
+    var dirs = alg === "dfs" ? DIRS.slice().reverse() : DIRS; // 栈后进先出，倒序压入以保证先试“上”
+    dirs.forEach(function (d) {
+      var nx = c.x + d[0], ny = c.y + d[1];
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H || wall[ny][nx]) return;
+      var nk = key(nx, ny);
+      if (alg === "dfs") { if (st.closed[nk]) return; st.parent[nk] = k; st.frontier.push({ x:nx, y:ny, g:c.g + 1 }); st.seen[nk] = true; return; }
+      if (st.seen[nk]) return;
+      st.seen[nk] = true; st.parent[nk] = k; st.frontier.push({ x:nx, y:ny, g:c.g + 1 });
+    });
+    draw(); msg("正在展开第 " + st.n + " 个格子（" + (c.x + 1) + ", " + (c.y + 1) + "）" + (alg === "astar" ? "：已走 g = " + c.g + "，估计还剩 h = " + h(c.x, c.y) + "，f = " + (c.g + h(c.x, c.y)) : ""));
+    return true;
+  }
+  function draw() {
+    var onPath = {}; (st.path || []).forEach(function (k) { onPath[k] = true; });
+    var inF = {}; st.frontier.forEach(function (c) { if (!st.closed[key(c.x, c.y)]) inF[key(c.x, c.y)] = true; });
+    cells.forEach(function (d, i) {
+      var x = i % W, y = Math.floor(i / W), cls = "c";
+      if (wall[y][x]) cls += " w"; else if (x === S[0] && y === S[1]) cls += " s"; else if (x === G[0] && y === G[1]) cls += " g";
+      else if (onPath[i]) cls += " p"; else if (st.closed[i]) cls += " v"; else if (inF[i]) cls += " f";
+      d.className = cls; d.textContent = x === S[0] && y === S[1] ? "起" : x === G[0] && y === G[1] ? "终" : "";
+    });
+    document.getElementById("nexp").textContent = st.n;
+    document.getElementById("nlen").textContent = st.path ? st.path.length - 1 : "—";
+    document.getElementById("nfr").textContent = Object.keys(inF).length;
+  }
+  function msg(t) { document.getElementById("msg").textContent = t; }
+  function stop() { if (timer) clearInterval(timer); timer = null; document.getElementById("run").textContent = "自动运行"; }
+  document.getElementById("run").onclick = function () {
+    if (timer) { stop(); return; }
+    if (st.done) reset();
+    this.textContent = "暂停";
+    timer = setInterval(function () { if (!step()) stop(); }, 260 - document.getElementById("speed").value * 25);
+  };
+  document.getElementById("step").onclick = function () { stop(); step(); };
+  document.getElementById("reset").onclick = reset;
+  document.getElementById("maze").onclick = function () { mi = (mi + 1) % MAZES.length; load(); };
+  document.getElementById("clear").onclick = function () { wall = wall.map(function (r) { return r.map(function () { return false; }); }); reset(); };
+  document.querySelectorAll("#algs button").forEach(function (b) {
+    b.onclick = function () { alg = b.dataset.a; document.querySelectorAll("#algs button").forEach(function (o) { o.classList.toggle("on", o === b); }); reset(); };
+  });
+  load();
+})();
+</script>
+<script src="../common/sim.js"></script>
+</body>
+</html>
