@@ -63,6 +63,7 @@ nav:
     - "温度与采样": sims/temperature-sampling/index.md
     - "词向量与余弦相似度": sims/word-vectors/index.md
     - "卷积滤镜": sims/conv-filter/index.md
+    - "声音的模样：波形与频谱": sims/sound-spectrum/index.md
   - 学习图谱: learning-graph/index.md
   - 常见问题: faq/index.md
   - "在线模拟卷": exam/index.md

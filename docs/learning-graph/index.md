@@ -19,7 +19,7 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
 
 <!-- graph:start -->
 
-图谱共有 **150 个概念、185 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
+图谱共有 **170 个概念、214 条先修关系**，概念按章排列，颜色表示 11 个类别（基础概念、搜索与推理、知识表示、机器学习、深度学习、语言与大模型、计算机视觉、语音技术、强化学习与智能体、行业应用、伦理与法规）。概念的定义都来自[附录 D 术语表](../appendix/glossary.md)，先修关系由编者根据各章内容整理。
 
 ## 文字版
 
@@ -204,5 +204,30 @@ description: 全书核心概念及其先修关系，点一个概念就能看到�
     | [多模态大模型](../appendix/glossary.md#g-多模态大模型) | 计算机视觉 | [大语言模型](../appendix/glossary.md#g-大语言模型)、[计算机视觉](../appendix/glossary.md#g-计算机视觉) |
     | [显式标识](../appendix/glossary.md#g-显式标识) | 计算机视觉 | [文生图](../appendix/glossary.md#g-文生图) |
     | [隐式标识](../appendix/glossary.md#g-隐式标识) | 计算机视觉 | [文生图](../appendix/glossary.md#g-文生图) |
+
+??? note "第 7 章 语音技术（20 个概念）"
+
+    | 概念 | 类别 | 直接先修 |
+    |---|---|---|
+    | [频率](../appendix/glossary.md#g-频率) | 语音技术 | [人工智能](../appendix/glossary.md#g-人工智能) |
+    | [振幅](../appendix/glossary.md#g-振幅) | 语音技术 | [频率](../appendix/glossary.md#g-频率) |
+    | [波形](../appendix/glossary.md#g-波形) | 语音技术 | [振幅](../appendix/glossary.md#g-振幅) |
+    | [采样](../appendix/glossary.md#g-采样) | 语音技术 | [波形](../appendix/glossary.md#g-波形) |
+    | [采样率](../appendix/glossary.md#g-采样率) | 语音技术 | [采样](../appendix/glossary.md#g-采样) |
+    | [量化](../appendix/glossary.md#g-量化) | 语音技术 | [采样](../appendix/glossary.md#g-采样) |
+    | [频谱](../appendix/glossary.md#g-频谱) | 语音技术 | [频率](../appendix/glossary.md#g-频率)、[波形](../appendix/glossary.md#g-波形) |
+    | [共振峰](../appendix/glossary.md#g-共振峰) | 语音技术 | [频谱](../appendix/glossary.md#g-频谱) |
+    | [语谱图](../appendix/glossary.md#g-语谱图) | 语音技术 | [频谱](../appendix/glossary.md#g-频谱) |
+    | [语音识别](../appendix/glossary.md#g-语音识别) | 语音技术 | [语谱图](../appendix/glossary.md#g-语谱图)、[语言模型](../appendix/glossary.md#g-语言模型)、[端到端](../appendix/glossary.md#g-端到端) |
+    | [端到端](../appendix/glossary.md#g-端到端) | 语音技术 | [深度学习](../appendix/glossary.md#g-深度学习) |
+    | [字错率](../appendix/glossary.md#g-字错率) | 语音技术 | [语音识别](../appendix/glossary.md#g-语音识别) |
+    | [语音唤醒](../appendix/glossary.md#g-语音唤醒) | 语音技术 | [语音识别](../appendix/glossary.md#g-语音识别)、[召回率](../appendix/glossary.md#g-召回率) |
+    | [语音合成](../appendix/glossary.md#g-语音合成) | 语音技术 | [语音识别](../appendix/glossary.md#g-语音识别)、[多音字](../appendix/glossary.md#g-多音字)、[自回归生成](../appendix/glossary.md#g-自回归生成) |
+    | [多音字](../appendix/glossary.md#g-多音字) | 语音技术 | — |
+    | [声纹](../appendix/glossary.md#g-声纹) | 语音技术 | [语谱图](../appendix/glossary.md#g-语谱图) |
+    | [声纹识别](../appendix/glossary.md#g-声纹识别) | 语音技术 | [声纹](../appendix/glossary.md#g-声纹)、[人脸识别](../appendix/glossary.md#g-人脸识别) |
+    | [语音克隆](../appendix/glossary.md#g-语音克隆) | 语音技术 | [语音合成](../appendix/glossary.md#g-语音合成)、[声纹](../appendix/glossary.md#g-声纹) |
+    | [语音大模型](../appendix/glossary.md#g-语音大模型) | 语音技术 | [语音识别](../appendix/glossary.md#g-语音识别)、[语音合成](../appendix/glossary.md#g-语音合成)、[Token](../appendix/glossary.md#g-Token) |
+    | [同声传译](../appendix/glossary.md#g-同声传译) | 语音技术 | [语音大模型](../appendix/glossary.md#g-语音大模型) |
 
 <!-- graph:end -->
