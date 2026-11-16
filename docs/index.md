@@ -9,6 +9,22 @@
     2 学分 · 36 学时 · 第 1 学期 · 9 章 · 18 个体验 · 期末闭卷
 <!-- course:end -->
 
+<!-- showcase:start -->
+## 先玩一玩
+
+<p class="sc-tagline">不写代码，也能看懂 AI 怎样“思考”</p>
+
+<div class="showcase" aria-label="精选交互动画">
+<ol class="sc-list">
+<li data-sim="sims/digit-recognition/main.html" data-video="assets/showcase/digit-recognition" data-title="手写数字识别" data-play="48 个神经元一起“亮灯”，最后投票给 0～9 中的一个。"><img src="assets/showcase/digit-recognition.jpg" alt="手写数字识别截图" loading="lazy"><p class="sc-hook">用鼠标写一个数字，看神经网络怎样认出来</p><p><b>手写数字识别</b>　48 个神经元一起“亮灯”，最后投票给 0～9 中的一个。</p><p><a href="sims/digit-recognition/main.html">打开动画</a>　<a class="sc-chap" href="chapters/04-deep-learning/" title="第 4 章 深度学习入门">去读第4章 →</a></p></li>
+<li data-sim="sims/turing-test/main.html" data-video="assets/showcase/turing-test" data-title="图灵测试小游戏" data-play="10 轮问答，看看你能识破几次 AI。"><img src="assets/showcase/turing-test.jpg" alt="图灵测试小游戏截图" loading="lazy"><p class="sc-hook">两段回答，哪段是人写的？你来当裁判</p><p><b>图灵测试小游戏</b>　10 轮问答，看看你能识破几次 AI。</p><p><a href="sims/turing-test/main.html">打开动画</a>　<a class="sc-chap" href="chapters/01-overview/" title="第 1 章 人工智能概述">去读第1章 →</a></p></li>
+<li data-sim="sims/maze-search/main.html" data-video="assets/showcase/maze-search" data-title="迷宫寻路：三种搜索比一比" data-play="广度优先、深度优先、A* 同场比赛。"><img src="assets/showcase/maze-search.jpg" alt="迷宫寻路：三种搜索比一比截图" loading="lazy"><p class="sc-hook">同一个迷宫，三种走法谁先找到出口？</p><p><b>迷宫寻路：三种搜索比一比</b>　广度优先、深度优先、A* 同场比赛。</p><p><a href="sims/maze-search/main.html">打开动画</a>　<a class="sc-chap" href="chapters/02-search-knowledge/" title="第 2 章 搜索、知识表示与专家系统">去读第2章 →</a></p></li>
+<li data-sim="sims/conv-filter/main.html" data-video="assets/showcase/conv-filter" data-title="卷积滤镜" data-play="换一个卷积核，同一张图变模糊、变锐利。"><img src="assets/showcase/conv-filter.jpg" alt="卷积滤镜截图" loading="lazy"><p class="sc-hook">一个 3×3 小窗口，就能让照片显出边缘</p><p><b>卷积滤镜</b>　换一个卷积核，同一张图变模糊、变锐利。</p><p><a href="sims/conv-filter/main.html">打开动画</a>　<a class="sc-chap" href="chapters/06-computer-vision/" title="第 6 章 计算机视觉">去读第6章 →</a></p></li>
+<li data-sim="sims/filter-bubble/main.html" data-video="assets/showcase/filter-bubble" data-title="信息茧房模拟" data-play="模拟 20 轮刷信息流，看兴趣被一点点收窄。"><img src="assets/showcase/filter-bubble.jpg" alt="信息茧房模拟截图" loading="lazy"><p class="sc-hook">你点得越多，推荐就越窄</p><p><b>信息茧房模拟</b>　模拟 20 轮刷信息流，看兴趣被一点点收窄。</p><p><a href="sims/filter-bubble/main.html">打开动画</a>　<a class="sc-chap" href="chapters/09-applications-ethics/" title="第 9 章 行业应用、伦理与法规">去读第9章 →</a></p></li>
+</ol>
+</div>
+<!-- showcase:end -->
+
 ## 这本书讲什么
 
 刷脸支付、导航路线、购物网站的“猜你喜欢”，以及 DeepSeek、豆包、通义千问、文心一言这些大模型对话产品，背后都是人工智能技术。这本书给人工智能技术应用专业的新同学画一张“地图”：人工智能有哪些主要分支，每个分支解决什么问题、大致怎样工作、用在哪些行业，又带来哪些伦理和法律问题。

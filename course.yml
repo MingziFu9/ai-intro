@@ -49,3 +49,56 @@ lesson_plan:
   online_ratio: 0.8                   # 各章写了 offline 时以 offline 为准
   teacher: ""
   school: ""
+
+# 首页“先玩一玩”轮播：按轮播顺序写，第 1 个放画面最震撼的。sim 是 docs/sims/ 下的目录名，hook 是一句问句，play 是一句玩法；
+# steps 是录短视频时自动做的操作（写法见 编写规范.md“首页轮播”）。改完运行 python tools/showcase.py record 重录视频。
+showcase_tagline: "不写代码，也能看懂 AI 怎样“思考”"
+showcase:
+  - sim: digit-recognition
+    hook: "用鼠标写一个数字，看神经网络怎样认出来"
+    play: "48 个神经元一起“亮灯”，最后投票给 0～9 中的一个。"
+    steps:
+      - ["click", "清空", {"hold": 0.4}]
+      - ["draw", "#pad", [[0.3, 0.22], [0.72, 0.22], [0.62, 0.45], [0.5, 0.68], [0.44, 0.86]], {"seg": 0.25, "hold": 1.4}]
+      - ["poster"]
+      - ["click", "换一个样例", {"hold": 1}]
+      - ["click", "换一个样例", {"hold": 1}]
+  - sim: turing-test
+    hook: "两段回答，哪段是人写的？你来当裁判"
+    play: "10 轮问答，看看你能识破几次 AI。"
+    vw: 780
+    steps:
+      - ["hold", 0.8]
+      - ["click", "A 是人", {"hold": 1.8}]
+      - ["poster"]
+      - ["click", {"sel": "button:has-text(\"下一\")"}, {"hold": 0.6}]
+      - ["click", "B 是人", {"hold": 1.8}]
+  - sim: maze-search
+    hook: "同一个迷宫，三种走法谁先找到出口？"
+    play: "广度优先、深度优先、A* 同场比赛。"
+    steps:
+      - ["click", "广度优先", {"hold": 0.3}]
+      - ["click", "自动运行", {"hold": 3.5}]
+      - ["click", "A*（曼哈顿距离）", {"hold": 0.3}]
+      - ["click", "自动运行", {"hold": 3}]
+      - ["poster"]
+  - sim: conv-filter
+    hook: "一个 3×3 小窗口，就能让照片显出边缘"
+    play: "换一个卷积核，同一张图变模糊、变锐利。"
+    steps:
+      - ["click", "竖直边缘", {"hold": 0.9}]
+      - ["click", "水平边缘", {"hold": 0.9}]
+      - ["click", "所有边缘", {"hold": 1}]
+      - ["poster"]
+      - ["click", "手写的 7", {"hold": 0.9}]
+      - ["click", "小房子", {"hold": 1}]
+      - ["click", "模糊", {"hold": 1}]
+  - sim: filter-bubble
+    hook: "你点得越多，推荐就越窄"
+    play: "模拟 20 轮刷信息流，看兴趣被一点点收窄。"
+    steps:
+      - ["click", "模拟一个用户：只点“游戏”，刷 20 轮", {"hold": 3.5}]
+      - ["poster"]
+      - ["scroll", 260]
+      - ["hold", 1.2]
+      - ["scroll", 0]
