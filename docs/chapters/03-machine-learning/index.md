@@ -205,6 +205,22 @@ flowchart LR
 !!! note "大模型是怎么学的"
     还有一种介于中间的方式叫[**自监督学习**](../../appendix/glossary.md#g-自监督学习 "从数据本身自动构造标签来训练模型的方式，大模型的预训练就是一例"){ .term }（Self-supervised Learning）：不用人来标，而是从数据本身自动“造”出标签。比如把一句话的最后一个词遮住，让模型猜被遮住的是什么，原句就是标准答案。DeepSeek、通义千问这类大模型的预训练，就是在海量文本上做这种“猜下一个词”的练习，我们在第 5 章会看到。
 
+??? microvideo "思维工具微课｜没人教它歧视，它是从哪学来的？　4 分 58 秒"
+
+    <video class="mv-video" controls preload="none" playsinline poster="../../assets/video/d2.jpg">
+      <source src="../../assets/video/d2.mp4" type="video/mp4">
+    </video>
+
+    **这一集的思维工具：三问来源。**局限：常常问不全。
+
+    **看完选两件做：**
+
+    - 玩一玩：K 近邻投票动画。
+    - 审一审 AI：查它的默认印象。
+    - 想一想自己：用三问查一个数字。
+
+    <p class="mv-note">本片配音和部分画面由 AI 生成。</p>
+
 ## 3.4 回归：预测一个数
 
 ### 3.4.1 什么是回归
